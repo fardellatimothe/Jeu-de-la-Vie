@@ -14,6 +14,7 @@ private:
 public:
     void initialiser(std::vector<std::vector<int>>& matrice);
     void calculerProchaineIteration();
+    int TaillePile();
     bool estStable() const;
 
 };

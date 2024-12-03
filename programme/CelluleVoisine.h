@@ -7,7 +7,7 @@ class CelluleVoisine : public Cellule {
 public:
     CelluleVoisine(int x, int y);
     bool estVivante() const;
-    void calculerProchainEtat() override;
+    virtual void calculerProchainEtat() override;
 };
 
 #endif // CELLULEVOISINE_H

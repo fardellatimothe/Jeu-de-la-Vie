@@ -1,6 +1,6 @@
 #include "Cellule.h"
 
-Cellule::Cellule(int x, int y) : x(x), y(y), nbVoisinesVivantes(0) {}
+Cellule::Cellule(int x, int y) : nbVoisinesVivantes(0), x(x), y(y) {}
 
 void Cellule::setNbVoisinesVivantes(int nb) {
     nbVoisinesVivantes = nb;

@@ -16,6 +16,10 @@ void Grille::calculerProchaineIteration() {
     // Logique de calcul de la prochaine itération
 }
 
+int Grille::TaillePile() {
+    return CelluleVivantePile.size();
+}
+
 bool Grille::estStable() const {
-    // Logique pour vérifier si la grille est stable
+    return true; // Logique pour vérifier si la grille est stable
 }
