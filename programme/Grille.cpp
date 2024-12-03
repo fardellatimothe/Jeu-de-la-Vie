@@ -1,6 +1,6 @@
 #include "Grille.h"
 
-void Grille::initialiser(vector<vector<int>>& matrice) {
+Grille::Grille(vector<vector<int>>& matrice) {
     CelluleExiste.resize(matrice.size(), vector<Cellule*>(matrice[0].size(), nullptr));
     for (int i = 0; i < matrice.size(); ++i) {
         for (int j = 0; j < matrice[0].size(); ++j) {
@@ -13,8 +13,12 @@ void Grille::initialiser(vector<vector<int>>& matrice) {
     }
 }
 
-
 void Grille::calculerProchaineIteration() {
+    CalculVoisin();
+    CalculSurvie();
+}
+
+void Grille::CalculVoisin() {
     while (!CelluleVivantePile.empty()) {
         int x = CelluleVivantePile.top()->getx();
         int y = CelluleVivantePile.top()->gety();
@@ -34,7 +38,6 @@ void Grille::calculerProchaineIteration() {
                         CelluleTransition.push(cellule_voisine);
                         CelluleExiste[newX][newY] = cellule_voisine;
                     } else {
-                        cout << newX << " " << newY << endl;
                         CelluleExiste[newX][newY]->IncrementerVoisinesVivantes();
                     }
                     
@@ -46,8 +49,30 @@ void Grille::calculerProchaineIteration() {
     }
 }
 
+void Grille::CalculSurvie(){
+    while (!CelluleTransition.empty()){
+        int nb_voisin = CelluleTransition.top()->getVoisin();
+        int x = CelluleTransition.top()->getx();
+        int y = CelluleTransition.top()->getx();
+
+        if (CelluleTransition.top()->calculerProchainEtat(nb_voisin)){
+            Cellule* cellule_vivante = new CelluleVivante(x, y);
+            CelluleVivantePile.push(cellule_vivante);
+            CelluleExiste[x][y] = cellule_vivante;
+
+            delete CelluleTransition.top();
+            CelluleTransition.pop();
+
+        } else {
+            CelluleExiste[x][y] = nullptr;
+            delete CelluleTransition.top();
+            CelluleTransition.pop();
+        }
+    }
+}
+
 int Grille::TaillePile() {
-    return CelluleTransition.size();
+    return CelluleVivantePile.size();
 }
 
 bool Grille::estStable() const {

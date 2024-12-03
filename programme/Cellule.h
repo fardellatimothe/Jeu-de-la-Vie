@@ -9,9 +9,11 @@ private:
 
 public:
     Cellule(int x, int y);
-    virtual void calculerProchainEtat() = 0;
+    virtual ~Cellule() {}
+    
+    virtual bool calculerProchainEtat(int voisin) = 0;
     void IncrementerVoisinesVivantes();
-    void notifierObservateurs(int x, int y, bool etat);
+    virtual void notifierObservateurs(int x, int y, bool etat) = 0;
     int getx() const;
     int gety() const;
     int getVoisin() const;

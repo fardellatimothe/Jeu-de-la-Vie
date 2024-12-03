@@ -2,10 +2,10 @@
 
 CelluleVivante::CelluleVivante(int x, int y) : Cellule(x, y) {}
 
-bool CelluleVivante::estVivante() const {
-    return true;// Logique pour vérifier si la cellule est vivante
+bool CelluleVivante::calculerProchainEtat(int voisin) {
+    return (voisin >= 2 && voisin <= 3);
 }
 
-void CelluleVivante::calculerProchainEtat() {
-    // Logique de calcul de l'état suivant pour une cellule vivante
+void CelluleVivante::notifierObservateurs(int x, int y, bool etat) {
+    
 }

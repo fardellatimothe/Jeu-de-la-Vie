@@ -13,12 +13,14 @@ private:
     stack<Cellule*> CelluleVivantePile;
     stack<Cellule*> CelluleTransition;
     vector<vector<Cellule*>> CelluleExiste;
+    int nbVoisin(int x, int y);
 
 public:
-    void initialiser(vector<vector<int>>& matrice);
+    Grille(vector<vector<int>>& matrice);
     void calculerProchaineIteration();
+    void CalculVoisin();
+    void CalculSurvie();
     int TaillePile();
-    int nbVoisin(int x, int y);
     bool estStable() const;
 
 };

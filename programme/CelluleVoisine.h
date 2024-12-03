@@ -6,8 +6,9 @@
 class CelluleVoisine : public Cellule {
 public:
     CelluleVoisine(int x, int y);
-    bool estVivante() const;
-    virtual void calculerProchainEtat() override;
+    virtual ~CelluleVoisine() override{}
+    virtual bool calculerProchainEtat(int voisin) override;
+    virtual void notifierObservateurs(int x, int y, bool etat) override;
 };
 
 #endif // CELLULEVOISINE_H
