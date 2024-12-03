@@ -18,8 +18,12 @@ class GestionFichier {
         GestionFichier(std::string path);
         GestionFichier(std::string path, std::string output);
 
+        int getx();
+        int gety();
+
         void lireEtatInitial();
         void sauvegarderEtat();
+        // void afficherMatrice() const;
 
         ~GestionFichier();
 };
