@@ -6,10 +6,6 @@ void Cellule::IncrementerVoisinesVivantes() {
     nbVoisinesVivantes = nbVoisinesVivantes + 1;
 }
 
-void Cellule::notifierObservateurs(int x, int y, bool etat) {
-    // Logique pour notifier les observateurs
-}
-
 int Cellule::getx() const {
     return x;
 }

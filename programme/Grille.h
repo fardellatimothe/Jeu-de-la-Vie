@@ -1,12 +1,11 @@
 #ifndef GRILLE_H
 #define GRILLE_H
 
-#include <vector>
 #include <stack>
 #include <iostream>
 #include "CelluleVivante.h"
 #include "CelluleVoisine.h"
-using namespace std;
+
 
 class Grille {
 private:

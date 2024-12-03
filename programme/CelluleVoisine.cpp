@@ -2,10 +2,12 @@
 
 CelluleVoisine::CelluleVoisine(int x, int y) : Cellule(x, y) {}
 
-bool CelluleVoisine::calculerProchainEtat(int voisin) {
-    return (voisin == 3);
+bool CelluleVoisine::calculerProchainEtat() {
+    if (nbVoisinesVivantes == 3){
+        notifierObservateurs(x, y, true);
+        return true;
+    } else {
+        return false;
+    }
 }
 
-void CelluleVoisine::notifierObservateurs(int x, int y, bool etat) {
-    
-}

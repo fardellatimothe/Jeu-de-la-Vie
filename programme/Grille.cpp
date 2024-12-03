@@ -51,11 +51,10 @@ void Grille::CalculVoisin() {
 
 void Grille::CalculSurvie(){
     while (!CelluleTransition.empty()){
-        int nb_voisin = CelluleTransition.top()->getVoisin();
         int x = CelluleTransition.top()->getx();
         int y = CelluleTransition.top()->getx();
 
-        if (CelluleTransition.top()->calculerProchainEtat(nb_voisin)){
+        if (CelluleTransition.top()->calculerProchainEtat()){
             Cellule* cellule_vivante = new CelluleVivante(x, y);
             CelluleVivantePile.push(cellule_vivante);
             CelluleExiste[x][y] = cellule_vivante;

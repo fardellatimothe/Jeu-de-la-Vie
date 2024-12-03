@@ -1,19 +1,22 @@
 #ifndef CELLULE_H
 #define CELLULE_H
 
-class Cellule {
+#include "Observers.h"
+#include "Observable.h"
+#include <vector>
+using namespace std;
 
-private:
+class Cellule : public Observable {
+
+protected:
     int nbVoisinesVivantes;
     int x, y;    
 
 public:
     Cellule(int x, int y);
     virtual ~Cellule() {}
-    
-    virtual bool calculerProchainEtat(int voisin) = 0;
+    virtual bool calculerProchainEtat() = 0;
     void IncrementerVoisinesVivantes();
-    virtual void notifierObservateurs(int x, int y, bool etat) = 0;
     int getx() const;
     int gety() const;
     int getVoisin() const;

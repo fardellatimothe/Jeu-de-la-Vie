@@ -1,10 +1,17 @@
 #include "Grille.h"
 #include <iostream>
 #include <vector>
+#include "Console.h"
+#include "Observable.h"
 
 using namespace std;
 
 int main(){
+    Observer* console = new Console;
+    Observable observable;
+
+    observable.ajouterObservateurs(console);
+
     std::vector<std::vector<int>> grid(5, std::vector<int>(5));
  
     // for (int x = 0; x < 20; ++x) {
