@@ -10,10 +10,11 @@ private:
 public:
     Cellule(int x, int y);
     virtual void calculerProchainEtat() = 0;
-    void setNbVoisinesVivantes(int nb);
+    void IncrementerVoisinesVivantes();
     void notifierObservateurs(int x, int y, bool etat);
     int getx() const;
     int gety() const;
+    int getVoisin() const;
 };
 
 #endif

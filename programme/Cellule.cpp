@@ -2,8 +2,8 @@
 
 Cellule::Cellule(int x, int y) : nbVoisinesVivantes(0), x(x), y(y) {}
 
-void Cellule::setNbVoisinesVivantes(int nb) {
-    nbVoisinesVivantes = nb;
+void Cellule::IncrementerVoisinesVivantes() {
+    nbVoisinesVivantes = nbVoisinesVivantes + 1;
 }
 
 void Cellule::notifierObservateurs(int x, int y, bool etat) {
@@ -16,4 +16,8 @@ int Cellule::getx() const {
 
 int Cellule::gety() const {
     return y;
+}
+
+int Cellule::getVoisin() const {
+    return nbVoisinesVivantes;
 }

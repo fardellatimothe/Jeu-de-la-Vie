@@ -3,18 +3,22 @@
 
 #include <vector>
 #include <stack>
+#include <iostream>
 #include "CelluleVivante.h"
 #include "CelluleVoisine.h"
+using namespace std;
 
 class Grille {
 private:
-    std::stack<Cellule*> CelluleVivantePile;
-    std::stack<Cellule*> CelluleTransition;
+    stack<Cellule*> CelluleVivantePile;
+    stack<Cellule*> CelluleTransition;
+    vector<vector<Cellule*>> CelluleExiste;
 
 public:
-    void initialiser(std::vector<std::vector<int>>& matrice);
+    void initialiser(vector<vector<int>>& matrice);
     void calculerProchaineIteration();
     int TaillePile();
+    int nbVoisin(int x, int y);
     bool estStable() const;
 
 };
