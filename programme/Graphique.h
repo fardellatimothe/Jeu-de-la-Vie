@@ -5,7 +5,7 @@
 
 class ObservateurConcret2 : public Observer {
 public:
-    void update(int x, int y, bool etat) override;
+    void update(int x, int y, int etat) override;
 };
 
 #endif

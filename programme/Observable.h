@@ -8,13 +8,12 @@ using namespace std;
 
 class Observable {
 
-private:
+protected:
     vector<Observer*> list_observers;
 
 public:
     void ajouterObservateurs(Observer* observer);
-    virtual void notifierObservateurs(int x, int y, bool etat);
-
+    virtual void notifierObservateur(int x, int y, int etat) = 0;
 };
 
 #endif

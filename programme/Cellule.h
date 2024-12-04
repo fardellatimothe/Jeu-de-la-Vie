@@ -1,12 +1,10 @@
 #ifndef CELLULE_H
 #define CELLULE_H
 
-#include "Observers.h"
-#include "Observable.h"
 #include <vector>
 using namespace std;
 
-class Cellule : public Observable {
+class Cellule {
 
 protected:
     int nbVoisinesVivantes;
@@ -20,6 +18,7 @@ public:
     int getx() const;
     int gety() const;
     int getVoisin() const;
+    virtual int etat() const = 0;
 };
 
 #endif

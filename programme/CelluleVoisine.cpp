@@ -3,11 +3,10 @@
 CelluleVoisine::CelluleVoisine(int x, int y) : Cellule(x, y) {}
 
 bool CelluleVoisine::calculerProchainEtat() {
-    if (nbVoisinesVivantes == 3){
-        notifierObservateurs(x, y, true);
-        return true;
-    } else {
-        return false;
-    }
+    return (nbVoisinesVivantes == 3);
+}
+
+int CelluleVoisine::etat()const {
+    return 0;
 }
 

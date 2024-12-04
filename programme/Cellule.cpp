@@ -3,7 +3,7 @@
 Cellule::Cellule(int x, int y) : nbVoisinesVivantes(0), x(x), y(y) {}
 
 void Cellule::IncrementerVoisinesVivantes() {
-    nbVoisinesVivantes = nbVoisinesVivantes + 1;
+    nbVoisinesVivantes++;
 }
 
 int Cellule::getx() const {

@@ -9,9 +9,11 @@ using namespace std;
 
 class Console : public Observer {
 private:
-    vector<vector<bool>> Matrice;
+    vector<vector<int>>* Matrice;
 public:
-    void update(int x, int y, bool etat) override; 
+    void update(int x, int y, int etat) override;
+    Console(vector<vector<int>>* grid); 
+    void Console::afficherMatrice() const;
 };
 
 #endif

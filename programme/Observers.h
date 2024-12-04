@@ -3,7 +3,7 @@
 
 class Observer {
 public:
-    virtual void update(int x, int y, bool etat) = 0;
+    virtual void update(int x, int y, int etat) = 0;
     virtual ~Observer() {}
 };
 

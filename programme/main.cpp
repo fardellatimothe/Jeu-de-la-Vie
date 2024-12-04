@@ -8,9 +8,6 @@ using namespace std;
 
 int main(){
     Observer* console = new Console;
-    Observable observable;
-
-    observable.ajouterObservateurs(console);
 
     std::vector<std::vector<int>> grid(5, std::vector<int>(5));
  
@@ -28,7 +25,10 @@ int main(){
     grid[1][0] = 1;
     grid[0][1] = 1;
     grid[2][0] = 1;
-    Grille grille(grid);
+
+    Grille grille = Grille(grid);
+    grille.ajouterObservateurs(console);
     grille.calculerProchaineIteration();
+    grille.notifierObservateur(10, 10, true);
     cout << "Nombre cellules vivante: " << grille.TaillePile() << endl;
 }

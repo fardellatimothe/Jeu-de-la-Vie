@@ -55,17 +55,35 @@ void Grille::CalculSurvie(){
         int y = CelluleTransition.top()->getx();
 
         if (CelluleTransition.top()->calculerProchainEtat()){
-            Cellule* cellule_vivante = new CelluleVivante(x, y);
-            CelluleVivantePile.push(cellule_vivante);
-            CelluleExiste[x][y] = cellule_vivante;
+            if (CelluleTransition.top()->etat() == 1)
+            {
+                CelluleVivantePile.push(CelluleTransition.top());
+                CelluleTransition.pop();
+                
+            } else if (CelluleTransition.top()->etat() == 0)
+            {
+                Cellule* cellule_vivante = new CelluleVivante(x, y);
+                CelluleVivantePile.push(cellule_vivante);
+                CelluleExiste[x][y] = cellule_vivante;
+                notifierObservateur(x, y, CelluleTransition.top()->etat());
 
-            delete CelluleTransition.top();
-            CelluleTransition.pop();
+                delete CelluleTransition.top();
+                CelluleTransition.pop();
+            }
 
         } else {
-            CelluleExiste[x][y] = nullptr;
-            delete CelluleTransition.top();
-            CelluleTransition.pop();
+            if (CelluleTransition.top()->etat() == 1)
+            {
+                CelluleExiste[x][y] = nullptr;
+                notifierObservateur(x, y, CelluleTransition.top()->etat());
+                delete CelluleTransition.top();
+                CelluleTransition.pop();
+                
+            } else if (CelluleTransition.top()->etat() == 0)
+            {
+                delete CelluleTransition.top();
+                CelluleTransition.pop();
+            }
         }
     }
 }
@@ -75,12 +93,16 @@ int Grille::TaillePile() {
 }
 
 bool Grille::estStable() const {
-    return true; // Logique pour vérifier si la grille est stable
+    return true; // A faire
 }
 
 int Grille::nbVoisin(int x, int y){
-    if (CelluleExiste[x][y] == nullptr){
-        return 0;
-    }
+    if (CelluleExiste[x][y] == nullptr) return 0;
     return CelluleExiste[x][y]->getVoisin();
+}
+
+void Grille::notifierObservateur(int x, int y, int etat){
+    for (auto observer : list_observers) {
+        observer->update(x, y, etat);
+    }
 }
