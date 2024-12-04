@@ -20,10 +20,12 @@ class GestionFichier {
 
         int getx();
         int gety();
+        void setMatrice(std::vector<std::vector<int>> *m);
 
         void lireEtatInitial();
         void sauvegarderEtat();
-        // void afficherMatrice() const;
+        void sauvegarderEtat(std::vector<std::vector<int>> *m);
+        void afficherMatrice() const;
 
         ~GestionFichier();
 };

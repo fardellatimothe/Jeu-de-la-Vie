@@ -11,7 +11,7 @@ GestionFichier::GestionFichier(std::string path) : cheminInitialisation(path) {
     if (fichier.is_open()) {
         fichier >> x_grille >> y_grille;
 
-        matrice_grille = std::vector<std::vector<int>>(x_grille, std::vector<int>(y_grille, '0'));
+        matrice_grille = std::vector<std::vector<int>>(x_grille, std::vector<int>(y_grille, 0));
     } else {
         std::cerr << "Le fichier n'a pas été initialisé. " << std::endl;
     }
@@ -26,7 +26,7 @@ GestionFichier::GestionFichier(std::string path, std::string output) : cheminIni
         fichier >> x_grille;
         fichier >> y_grille;
 
-        matrice_grille = std::vector<std::vector<int>>(x_grille, std::vector<int>(y_grille, '0'));
+        matrice_grille = std::vector<std::vector<int>>(x_grille, std::vector<int>(y_grille, 0));
     } else {
         std::cerr << "Le fichier n'a pas été initialisé. " << std::endl;
     }
@@ -49,6 +49,7 @@ void GestionFichier::setMatrice(std::vector<std::vector<int>> *m) {
     matrice_grille = *m;
     return;
 }
+
 
 // Lire l'état initial des cellules dans le fichier
 void GestionFichier::lireEtatInitial() {
@@ -149,6 +150,7 @@ void GestionFichier::sauvegarderEtat(std::vector<std::vector<int>> *m) {
     }
     return;
 }
+
 
 // Destructeur
 GestionFichier::~GestionFichier() {}
