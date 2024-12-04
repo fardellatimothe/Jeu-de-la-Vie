@@ -15,6 +15,7 @@ Grille::Grille(vector<vector<int>>& matrice) {
 
 void Grille::calculerProchaineIteration() {
     CalculVoisin();
+    cout << "Cellule créer: " << TaillePile() << endl;
     CalculSurvie();
 }
 
@@ -25,7 +26,6 @@ void Grille::CalculVoisin() {
         
         int hauteur = CelluleExiste.size(); // Nombre de lignes
         int largeur = CelluleExiste[0].size(); // Nombre de colonnes
-
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
                 int newX = x + i;
@@ -52,8 +52,8 @@ void Grille::CalculVoisin() {
 void Grille::CalculSurvie(){
     while (!CelluleTransition.empty()){
         int x = CelluleTransition.top()->getx();
-        int y = CelluleTransition.top()->getx();
-
+        int y = CelluleTransition.top()->gety();
+        
         if (CelluleTransition.top()->calculerProchainEtat()){
             if (CelluleTransition.top()->etat() == 1)
             {
@@ -65,7 +65,7 @@ void Grille::CalculSurvie(){
                 Cellule* cellule_vivante = new CelluleVivante(x, y);
                 CelluleVivantePile.push(cellule_vivante);
                 CelluleExiste[x][y] = cellule_vivante;
-                notifierObservateur(x, y, CelluleTransition.top()->etat());
+                notifierObservateur(x, y, 1);
 
                 delete CelluleTransition.top();
                 CelluleTransition.pop();
@@ -75,7 +75,7 @@ void Grille::CalculSurvie(){
             if (CelluleTransition.top()->etat() == 1)
             {
                 CelluleExiste[x][y] = nullptr;
-                notifierObservateur(x, y, CelluleTransition.top()->etat());
+                notifierObservateur(x, y, 0);
                 delete CelluleTransition.top();
                 CelluleTransition.pop();
                 
@@ -89,7 +89,7 @@ void Grille::CalculSurvie(){
 }
 
 int Grille::TaillePile() {
-    return CelluleVivantePile.size();
+    return CelluleTransition.size();
 }
 
 bool Grille::estStable() const {

@@ -15,23 +15,25 @@ GestionFichier::GestionFichier(std::string path, std::string output) : cheminIni
 
 
 // Lire l'état initial des cellules dans le fichier
-std::vector<std::vector<int>> GestionFichier::lireEtatInitial() {
+std::vector<std::vector<int>>* GestionFichier::lireEtatInitial() {
     std::ifstream fichier(cheminInitialisation);
     if (fichier.is_open()) {
         fichier >> x_grille >> y_grille;
-
-        std::vector<std::vector<int>> matrice_grille = std::vector<std::vector<int>>(x_grille, std::vector<int>(y_grille, 0));
-        fichier.seekg(5, std::ios::beg);
+        std::vector<std::vector<int>>* matrice_grille = new std::vector<std::vector<int>>(x_grille, std::vector<int>(y_grille, 0));
+        fichier.seekg(3, std::ios::beg);
+        
         for (int x = 0; x < x_grille; ++x) {
             for (int y = 0; y < y_grille; ++y) {
-                fichier >> matrice_grille[x][y];
+                fichier >> (*matrice_grille)[x][y];
             }
         }
+
         fichier.close();
         return matrice_grille;
     } else {
         std::cerr << "Erreur : Impossible d'ouvrir le fichier pour lire l'état initial." << std::endl;
-        return std::vector<std::vector<int>>(x_grille, std::vector<int>(y_grille, 0));
+        std::vector<std::vector<int>>* matrice_grille = new std::vector<std::vector<int>>(x_grille, std::vector<int>(y_grille, 0));
+        return matrice_grille;
     }
 }
 
