@@ -13,7 +13,7 @@ private:
 public:
     void update(int x, int y, int etat) override;
     Console(vector<vector<int>>* grid); 
-    void Console::afficherMatrice() const;
+    void afficherMatrice() const;
 };
 
 #endif
