@@ -15,8 +15,14 @@ int main(){
     Grille grille = Grille(*test);
     grille.ajouterObservateurs(&console);
     console.afficherMatrice();
-    grille.calculerProchaineIteration();
+
+    for (int i=0; i<20; i++){
+        grille.calculerProchaineIteration();
+        gestionFichier.sauvegarderEtat(test);
+    }
+
     console.afficherMatrice();
+    
 
     return 0;
 }

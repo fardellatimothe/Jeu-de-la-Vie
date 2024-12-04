@@ -17,3 +17,7 @@ int Cellule::gety() const {
 int Cellule::getVoisin() const {
     return nbVoisinesVivantes;
 }
+
+void Cellule::resetVoisin(){
+    nbVoisinesVivantes = 0;
+}

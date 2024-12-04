@@ -18,6 +18,7 @@ public:
     int getx() const;
     int gety() const;
     int getVoisin() const;
+    void resetVoisin();
     virtual int etat() const = 0;
 };
 

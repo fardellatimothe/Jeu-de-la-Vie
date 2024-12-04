@@ -20,7 +20,7 @@ class GestionFichier {
 
 
         std::vector<std::vector<int>>* lireEtatInitial();
-        void sauvegarderEtat(std::vector<std::vector<int>> matrice_grille);
+        void sauvegarderEtat(std::vector<std::vector<int>>* matrice_grille);
 
         ~GestionFichier();
 };

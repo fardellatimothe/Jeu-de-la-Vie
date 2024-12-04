@@ -38,7 +38,7 @@ std::vector<std::vector<int>>* GestionFichier::lireEtatInitial() {
 }
 
 // Sauvegarder l'etat des cellules dans un fichier
-void GestionFichier::sauvegarderEtat(std::vector<std::vector<int>> matrice_grille) {
+void GestionFichier::sauvegarderEtat(std::vector<std::vector<int>>* matrice_grille) {
     if (!(cheminSauvegarde == std::string(""))) {
         ite++;
         std::string nom_fichier = cheminSauvegarde + "/fichier_ite_" + std::to_string(ite);
@@ -47,7 +47,7 @@ void GestionFichier::sauvegarderEtat(std::vector<std::vector<int>> matrice_grill
         if (fichier.is_open()) {
             for (int x = 0; x < x_grille; ++x) {
                 for (int y = 0; y < y_grille; ++y) {
-                    fichier << matrice_grille[x][y];
+                    fichier << (*matrice_grille)[x][y];
                     fichier << " ";
                 }
                 fichier << "\n";
@@ -68,7 +68,7 @@ void GestionFichier::sauvegarderEtat(std::vector<std::vector<int>> matrice_grill
         if (fichier.is_open()) {
             for (int x = 0; x < x_grille; ++x) {
                 for (int y = 0; y < y_grille; ++y) {
-                    fichier << matrice_grille[x][y];
+                    fichier << (*matrice_grille)[x][y];
                     fichier << " ";
                 }
                 fichier << "\n";

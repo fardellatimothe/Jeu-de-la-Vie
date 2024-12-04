@@ -15,7 +15,6 @@ Grille::Grille(vector<vector<int>>& matrice) {
 
 void Grille::calculerProchaineIteration() {
     CalculVoisin();
-    cout << "Cellule créer: " << TaillePile() << endl;
     CalculSurvie();
 }
 
@@ -58,6 +57,7 @@ void Grille::CalculSurvie(){
             if (CelluleTransition.top()->etat() == 1)
             {
                 CelluleVivantePile.push(CelluleTransition.top());
+                CelluleVivantePile.top()->resetVoisin();
                 CelluleTransition.pop();
                 
             } else if (CelluleTransition.top()->etat() == 0)
@@ -80,7 +80,7 @@ void Grille::CalculSurvie(){
                 CelluleTransition.pop();
                 
             } else if (CelluleTransition.top()->etat() == 0)
-            {
+            {   CelluleExiste[x][y] = nullptr;
                 delete CelluleTransition.top();
                 CelluleTransition.pop();
             }
