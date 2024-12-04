@@ -47,6 +47,20 @@
         "streambuf": "cpp",
         "typeinfo": "cpp",
         "sstream": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "chrono": "cpp",
+        "codecvt": "cpp",
+        "ratio": "cpp",
+        "iomanip": "cpp",
+        "any": "cpp",
+        "bitset": "cpp",
+        "cstring": "cpp",
+        "list": "cpp",
+        "set": "cpp",
+        "unordered_set": "cpp",
+        "optional": "cpp",
+        "regex": "cpp",
+        "typeindex": "cpp",
+        "variant": "cpp"
     }
 }
