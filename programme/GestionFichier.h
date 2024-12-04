@@ -12,20 +12,15 @@ class GestionFichier {
         std::string cheminSauvegarde;
         int x_grille;
         int y_grille;
-        std::vector<std::vector<int>> matrice_grille;
+        int ite;
 
     public: 
         GestionFichier(std::string path);
         GestionFichier(std::string path, std::string output);
 
-        int getx();
-        int gety();
-        void setMatrice(std::vector<std::vector<int>> *m);
 
-        void lireEtatInitial();
-        void sauvegarderEtat();
-        void sauvegarderEtat(std::vector<std::vector<int>> *m);
-        void afficherMatrice() const;
+        std::vector<std::vector<int>> lireEtatInitial();
+        void sauvegarderEtat(std::vector<std::vector<int>> matrice_grille);
 
         ~GestionFichier();
 };

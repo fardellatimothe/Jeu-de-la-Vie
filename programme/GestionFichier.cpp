@@ -4,87 +4,47 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <filesystem>
 
 // Constructeur
-GestionFichier::GestionFichier(std::string path) : cheminInitialisation(path) {
+GestionFichier::GestionFichier(std::string path) : cheminInitialisation(path), ite(0) {}
+
+
+// Constructeur Parametré
+GestionFichier::GestionFichier(std::string path, std::string output) : cheminInitialisation(path), cheminSauvegarde(output), ite(0) {}
+
+
+// Lire l'état initial des cellules dans le fichier
+std::vector<std::vector<int>> GestionFichier::lireEtatInitial() {
     std::ifstream fichier(cheminInitialisation);
     if (fichier.is_open()) {
         fichier >> x_grille >> y_grille;
 
-        matrice_grille = std::vector<std::vector<int>>(x_grille, std::vector<int>(y_grille, 0));
-    } else {
-        std::cerr << "Le fichier n'a pas été initialisé. " << std::endl;
-    }
-    fichier.close();
-}
-
-
-// Constructeur Parametré
-GestionFichier::GestionFichier(std::string path, std::string output) : cheminInitialisation(path), cheminSauvegarde(output) {
-    std::ifstream fichier(cheminInitialisation);
-    if (fichier.is_open()) {
-        fichier >> x_grille;
-        fichier >> y_grille;
-
-        matrice_grille = std::vector<std::vector<int>>(x_grille, std::vector<int>(y_grille, 0));
-    } else {
-        std::cerr << "Le fichier n'a pas été initialisé. " << std::endl;
-    }
-    fichier.close();
-}
-
-// Obtenir x
-int GestionFichier::getx() {
-    return x_grille;
-}
-
-
-// Obtenir y
-int GestionFichier::gety() {
-    return y_grille;
-}
-
-
-void GestionFichier::setMatrice(std::vector<std::vector<int>> *m) {
-    matrice_grille = *m;
-    return;
-}
-
-
-// Lire l'état initial des cellules dans le fichier
-void GestionFichier::lireEtatInitial() {
-    std::ifstream fichier(cheminInitialisation);
-    if (fichier.is_open()) {
+        std::vector<std::vector<int>> matrice_grille = std::vector<std::vector<int>>(x_grille, std::vector<int>(y_grille, 0));
         fichier.seekg(5, std::ios::beg);
-        for (int x = 0; x < getx(); ++x) {
-            for (int y = 0; y < gety(); ++y) {
+        for (int x = 0; x < x_grille; ++x) {
+            for (int y = 0; y < y_grille; ++y) {
                 fichier >> matrice_grille[x][y];
             }
         }
         fichier.close();
+        return matrice_grille;
     } else {
         std::cerr << "Erreur : Impossible d'ouvrir le fichier pour lire l'état initial." << std::endl;
-        return;
+        return std::vector<std::vector<int>>(x_grille, std::vector<int>(y_grille, 0));
     }
 }
 
-void GestionFichier::afficherMatrice() const {
-    std::cout << x_grille << " " << y_grille << std::endl; // Afficher les dimensions
-    for (const auto& ligne : matrice_grille) {
-        for (int cell : ligne) {
-            std::cout << cell << " ";
-        }
-        std::cout << std::endl;
-    }
-}
-
-// Ecrire dans le fichier la matrice (finale)
-void GestionFichier::sauvegarderEtat() {
+// Sauvegarder l'etat des cellules dans un fichier
+void GestionFichier::sauvegarderEtat(std::vector<std::vector<int>> matrice_grille) {
     if (!(cheminSauvegarde == std::string(""))) {
-        std::ofstream fichier(cheminSauvegarde);
+        ite++;
+        std::string nom_fichier = cheminSauvegarde + "/fichier_ite_" + std::to_string(ite);
+
+        std::ofstream fichier(nom_fichier);
         if (fichier.is_open()) {
-            for (int x = 0; x < getx(); ++x) {
-                for (int y = 0; y < gety(); ++y) {
+            for (int x = 0; x < x_grille; ++x) {
+                for (int y = 0; y < y_grille; ++y) {
                     fichier << matrice_grille[x][y];
                     fichier << " ";
                 }
@@ -96,47 +56,16 @@ void GestionFichier::sauvegarderEtat() {
             return;
         }
     } else {
-        std::ofstream fichier(cheminInitialisation);
-        if (fichier.is_open()) {
-            for (int x = 0; x < getx(); ++x) {
-                for (int y = 0; y < gety(); ++y) {
-                    fichier << matrice_grille[x][y];
-                    fichier << " ";
-                }
-                fichier << "\n";
-            }
-            fichier.close();
-        } else {
-            std::cerr << "Erreur : Impossible d'ouvrir le fichier pour sauvegarder l'état initial. (2)" << std::endl;
-            return;
-        }
-    }
-    return;
-}
+        ite++;
+        std::string nom_dossier = "Sauvergarde";
+        std::string nom_fichier = nom_dossier + "/fichier_ite_" + std::to_string(ite);
 
+        std::filesystem::create_directory(nom_dossier);
 
-void GestionFichier::sauvegarderEtat(std::vector<std::vector<int>> *m) {
-    matrice_grille = *m;
-    if (!(cheminSauvegarde == std::string(""))) {
-        std::ofstream fichier(cheminSauvegarde);
+        std::ofstream fichier(nom_fichier);
         if (fichier.is_open()) {
-            for (int x = 0; x < getx(); ++x) {
-                for (int y = 0; y < gety(); ++y) {
-                    fichier << matrice_grille[x][y];
-                    fichier << " ";
-                }
-                fichier << "\n";
-            }
-            fichier.close();
-        } else {
-            std::cerr << "Erreur : Impossible d'ouvrir le fichier pour sauvegarder l'état initial. (1)" << std::endl;
-            return;
-        }
-    } else {
-        std::ofstream fichier(cheminInitialisation);
-        if (fichier.is_open()) {
-            for (int x = 0; x < getx(); ++x) {
-                for (int y = 0; y < gety(); ++y) {
+            for (int x = 0; x < x_grille; ++x) {
+                for (int y = 0; y < y_grille; ++y) {
                     fichier << matrice_grille[x][y];
                     fichier << " ";
                 }

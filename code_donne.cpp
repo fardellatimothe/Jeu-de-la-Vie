@@ -1,54 +1,30 @@
-#include <SFML/Graphics.hpp>
-#include <vector>
-#include <ctime>
-#include <cstdlib>
-
-const int cellSize = 10;
-const int gridWidth = 80;
-const int gridHeight = 80;
-
-std::vector<std::vector<int>> grid(gridWidth, std::vector<int>(gridHeight));
-
-void initializeGrid() {
-    std::srand(std::time(0));
-    for (int x = 0; x < gridWidth; ++x) {
-        for (int y = 0; y < gridHeight; ++y) {
-            grid[x][y] = std::rand() % 2;  // Randomly initialize cells as alive or dead
-        }
-    }
-}
-
-void renderGrid(sf::RenderWindow &window) {
-    int x, y;
-    
-    window.clear();
-    sf::RectangleShape cell(sf::Vector2f(cellSize - 1.0f, cellSize - 1.0f));
-    for (x = 0; x < gridWidth; ++x) {
-        for (y = 0; y < gridHeight; ++y) {
-            if (grid[x][y] == 1) {
-                cell.setPosition(x * cellSize, y * cellSize);
-                window.draw(cell);
-            }
-        }
-    }
-    window.display();
-}
+#include <iostream>
+#include <fstream>
+#include <filesystem>
+#include <bits/fs_ops.h>
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(gridWidth * cellSize, gridHeight * cellSize), "Game of Life");
-    
-    initializeGrid();
+    std::string dir = "mon_dossier";
+    std::string fichier = dir + "/mon_fichier.txt";  // Créer un fichier dans le dossier
 
-    while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();
+    // Créer le répertoire si nécessaire
+    if (!std::filesystem::exists(dir)) {
+        if (std::filesystem::create_directory(dir)) {
+            std::cout << "Le dossier a été créé avec succès." << std::endl;
+        } else {
+            std::cerr << "Erreur lors de la création du dossier." << std::endl;
+            return 1;
         }
+    }
 
-        renderGrid(window);
-
-        sf::sleep(sf::milliseconds(100));
+    // Créer un fichier dans ce répertoire
+    std::ofstream fichier_out(fichier);
+    if (fichier_out.is_open()) {
+        fichier_out << "Hello, World!" << std::endl;
+        fichier_out.close();
+        std::cout << "Fichier créé avec succès." << std::endl;
+    } else {
+        std::cerr << "Erreur lors de la création du fichier." << std::endl;
     }
 
     return 0;
