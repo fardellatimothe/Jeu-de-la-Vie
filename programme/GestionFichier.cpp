@@ -5,6 +5,7 @@
 #include <vector>
 #include <fstream>
 
+// Constructeur
 GestionFichier::GestionFichier(std::string path) : cheminInitialisation(path) {
     std::ifstream fichier(cheminInitialisation);
     if (fichier.is_open()) {
@@ -17,6 +18,8 @@ GestionFichier::GestionFichier(std::string path) : cheminInitialisation(path) {
     fichier.close();
 }
 
+
+// Constructeur Parametré
 GestionFichier::GestionFichier(std::string path, std::string output) : cheminInitialisation(path), cheminSauvegarde(output) {
     std::ifstream fichier(cheminInitialisation);
     if (fichier.is_open()) {
@@ -30,10 +33,13 @@ GestionFichier::GestionFichier(std::string path, std::string output) : cheminIni
     fichier.close();
 }
 
+// Obtenir x
 int GestionFichier::getx() {
     return x_grille;
 }
 
+
+// Obtenir y
 int GestionFichier::gety() {
     return y_grille;
 }
@@ -45,6 +51,7 @@ void GestionFichier::setMatrice(std::vector<std::vector<int>> *m) {
 }
 
 
+// Lire l'état initial des cellules dans le fichier
 void GestionFichier::lireEtatInitial() {
     std::ifstream fichier(cheminInitialisation);
     if (fichier.is_open()) {
@@ -71,6 +78,7 @@ void GestionFichier::afficherMatrice() const {
     }
 }
 
+// Ecrire dans le fichier la matrice (finale)
 void GestionFichier::sauvegarderEtat() {
     if (!(cheminSauvegarde == std::string(""))) {
         std::ofstream fichier(cheminSauvegarde);
@@ -143,4 +151,6 @@ void GestionFichier::sauvegarderEtat(std::vector<std::vector<int>> *m) {
     return;
 }
 
+
+// Destructeur
 GestionFichier::~GestionFichier() {}
