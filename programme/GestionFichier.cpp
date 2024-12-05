@@ -14,6 +14,14 @@ GestionFichier::GestionFichier(std::string path) : cheminInitialisation(path), i
 GestionFichier::GestionFichier(std::string path, std::string output) : cheminInitialisation(path), cheminSauvegarde(output), ite(0) {}
 
 
+int GestionFichier::getx() {
+    return x_grille;
+}
+
+int GestionFichier::gety() {
+    return y_grille;
+}
+
 // Lire l'état initial des cellules dans le fichier
 std::vector<std::vector<int>>* GestionFichier::lireEtatInitial() {
     std::ifstream fichier(cheminInitialisation);

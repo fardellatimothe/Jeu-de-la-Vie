@@ -18,6 +18,9 @@ class GestionFichier {
         GestionFichier(std::string path);
         GestionFichier(std::string path, std::string output);
 
+        int getx();
+        int gety();
+
 
         std::vector<std::vector<int>>* lireEtatInitial();
         void sauvegarderEtat(std::vector<std::vector<int>> matrice_grille);
