@@ -28,6 +28,7 @@ void Controleur::start(string chemin_initial, double vitesse){
     grille.ajouterObservateurs(&graphique);
     
     graphique.initialiser(*test);
+    
     cout << grille.TaillePile() << endl;
 
     while (graphique.fenetreOuverte()){

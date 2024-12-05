@@ -37,7 +37,17 @@ void Graphique::initialiser(std::vector<std::vector<int>> &matrice) {
         for (int y = 0; y < matrice[0].size(); ++y) {
             if (matrice[x][y] == 1) {
                 cellule.setPosition(y * taille_cellule, x * taille_cellule);
+                cellule.setFillColor(sf::Color::White);
+                jeu.draw(cellule);
+            } else if (matrice[x][y] == 2)
+            {
+                cellule.setPosition(y * taille_cellule, x * taille_cellule);
                 cellule.setFillColor(sf::Color::Green);
+                jeu.draw(cellule);
+            } else if (matrice[x][y] == 3)
+            {
+                cellule.setPosition(y * taille_cellule, x * taille_cellule);
+                cellule.setFillColor(sf::Color::Red);
                 jeu.draw(cellule);
             }
         }
@@ -58,7 +68,17 @@ void Graphique::afficherGrille(const std::vector<std::vector<int>> &matrice) {
         for (int y = 0; y < colonnes; ++y) {
             if (matrice[x][y] == 1) {
                 cellule.setPosition(y * taille_cellule, x * taille_cellule);
+                cellule.setFillColor(sf::Color::White);
+                jeu.draw(cellule);
+            } else if (matrice[x][y] == 2)
+            {
+                cellule.setPosition(y * taille_cellule, x * taille_cellule);
                 cellule.setFillColor(sf::Color::Green);
+                jeu.draw(cellule);
+            } else if (matrice[x][y] == 3)
+            {
+                cellule.setPosition(y * taille_cellule, x * taille_cellule);
+                cellule.setFillColor(sf::Color::Red);
                 jeu.draw(cellule);
             }
         }
@@ -71,7 +91,7 @@ void Graphique::afficherGrille(const std::vector<std::vector<int>> &matrice) {
 void Graphique::update(int x, int y, int etat) {
     sf::RectangleShape cellule(sf::Vector2f(taille_cellule - 1.0f, taille_cellule - 1.0f));
     cellule.setPosition(y * taille_cellule, x * taille_cellule);
-    cellule.setFillColor(etat == 1 ? sf::Color::Green : sf::Color::Black);
+    cellule.setFillColor(etat == 1 ? sf::Color::White : sf::Color::Black);
 
     jeu.draw(cellule);
  }
