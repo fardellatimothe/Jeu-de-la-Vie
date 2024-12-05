@@ -8,7 +8,18 @@ Grille::Grille(vector<vector<int>>& matrice) {
                 Cellule* cellule = new CelluleVivante(i, j);
                 CelluleVivantePile.push(cellule);
                 CelluleExiste[i][j] = cellule;
+            } else if (matrice[i][j] == 2)
+            {
+                Cellule* cellule = new CelluleVivante(i, j, true);
+                CelluleVivantePile.push(cellule);
+                CelluleExiste[i][j] = cellule;
+            } else if (matrice[i][j] == 3)
+            {
+                Cellule* cellule = new CelluleVoisine(i, j);
+                CelluleExiste[i][j] = cellule;
             }
+            
+            
         }
     }
 }

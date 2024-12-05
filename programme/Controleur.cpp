@@ -1,6 +1,6 @@
-#include "controleur.h"
+#include "Controleur.h"
 
-void Controleur::start(int iteration_max, string chemin_initial, string chemin_sauvegarde){    
+void Controleur::start(string chemin_initial, string chemin_sauvegarde, int iteration_max){    
     GestionFichier gestionFichier(chemin_initial, chemin_sauvegarde);
     vector<std::vector<int>>* test = gestionFichier.lireEtatInitial();
 
@@ -28,6 +28,7 @@ void Controleur::start(string chemin_initial, double vitesse){
     grille.ajouterObservateurs(&graphique);
     
     graphique.initialiser(*test);
+    
     cout << grille.TaillePile() << endl;
 
     while (graphique.fenetreOuverte()){
