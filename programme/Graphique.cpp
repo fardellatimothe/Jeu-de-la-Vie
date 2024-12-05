@@ -8,8 +8,6 @@
 #include "Graphique.h"
 #include <iostream>
 
-#include <chrono>
-using namespace std;
 
 Graphique::Graphique(std::vector<std::vector<int>> &matrice) {
     int lignes = matrice.size();
@@ -71,18 +69,15 @@ void Graphique::afficherGrille(const std::vector<std::vector<int>> &matrice) {
 
 // Mettre à jour une cellule dans la grille
 void Graphique::update(int x, int y, int etat) {
-    auto test12 = chrono::high_resolution_clock::now();
-
     sf::RectangleShape cellule(sf::Vector2f(taille_cellule - 1.0f, taille_cellule - 1.0f));
     cellule.setPosition(y * taille_cellule, x * taille_cellule);
     cellule.setFillColor(etat == 1 ? sf::Color::Green : sf::Color::Black);
 
     jeu.draw(cellule);
-    jeu.display();
+ }
 
-    auto end1 = chrono::high_resolution_clock::now();
-    chrono::duration<double> duration = end1 - test12;
-    //cout << "Temps d'exécution : " << duration.count() << " secondes" << endl;
+void Graphique::update_grille(){
+    jeu.display();
 }
 
 // Gérer les événements de la fenêtre

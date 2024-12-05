@@ -22,6 +22,7 @@ class Graphique : public Observer {
 
         void afficherGrille(const std::vector<std::vector<int>> &matrice); // Nouvelle méthode
 
+        void update_grille();
         ~Graphique() override;
 };
 
