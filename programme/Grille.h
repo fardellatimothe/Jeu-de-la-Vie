@@ -15,6 +15,7 @@ private:
     stack<Cellule*> CelluleTransition;
     vector<vector<Cellule*>> CelluleExiste;
     int nbVoisin(int x, int y);
+    bool stable;
 
 public:
     Grille(vector<vector<int>>& matrice);
