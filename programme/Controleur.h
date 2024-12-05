@@ -19,8 +19,8 @@ class Controleur {
 public:
     Controleur(){}
     ~Controleur(){}
-    void start(int iteration_max, string chemin_initial, string chemin_sauvegarde); // mode console
-    void start(string chemin_initial, double vitesse);
+    void start(string chemin_initial, string chemin_sauvegarde, int iteration_max); // mode console
+    void start(string chemin_initial, double vitesse); // Mode Graphique
 };
 
 #endif
