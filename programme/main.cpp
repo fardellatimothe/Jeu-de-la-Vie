@@ -1,28 +1,17 @@
-#include "Grille.h"
 #include <iostream>
-#include <vector>
-#include "Console.h"
-#include "Observable.h"
-#include "GestionFichier.h"
-
+#include <chrono>
+#include "controleur.h"
 using namespace std;
 
 int main(){
-    GestionFichier gestionFichier("fichier_input.txt","Test");
-    vector<std::vector<int>>* test = gestionFichier.lireEtatInitial();
+    auto start = std::chrono::high_resolution_clock::now();
+    Controleur jeu_de_la_vie = Controleur();
 
-    Console console = Console(test);
-    Grille grille = Grille(*test);
-    grille.ajouterObservateurs(&console);
-    console.afficherMatrice();
-
-    for (int i=0; i<20; i++){
-        grille.calculerProchaineIteration();
-        gestionFichier.sauvegarderEtat(test);
-    }
-
-    console.afficherMatrice();
+    jeu_de_la_vie.start(5, "fichier_input.txt", "Test");
     
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+    std::cout << "Temps d'exécution : " << duration.count() << " secondes" << std::endl;
 
     return 0;
 }

@@ -14,6 +14,7 @@ Grille::Grille(vector<vector<int>>& matrice) {
 }
 
 void Grille::calculerProchaineIteration() {
+    stable = true;
     CalculVoisin();
     CalculSurvie();
 }
@@ -93,7 +94,7 @@ int Grille::TaillePile() {
 }
 
 bool Grille::estStable() const {
-    return true; // A faire
+    return stable;
 }
 
 int Grille::nbVoisin(int x, int y){
@@ -102,6 +103,7 @@ int Grille::nbVoisin(int x, int y){
 }
 
 void Grille::notifierObservateur(int x, int y, int etat){
+    stable = false;
     for (auto observer : list_observers) {
         observer->update(x, y, etat);
     }
