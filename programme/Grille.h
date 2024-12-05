@@ -8,7 +8,6 @@
 #include "CelluleVivante.h"
 #include "CelluleVoisine.h"
 
-
 class Grille : public Observable{
 private:
     stack<Cellule*> CelluleVivantePile;
