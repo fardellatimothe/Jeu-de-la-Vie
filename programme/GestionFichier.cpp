@@ -20,7 +20,6 @@ std::vector<std::vector<int>>* GestionFichier::lireEtatInitial() {
     if (fichier.is_open()) {
         fichier >> x_grille >> y_grille;
         std::vector<std::vector<int>>* matrice_grille = new std::vector<std::vector<int>>(x_grille, std::vector<int>(y_grille, 0));
-        fichier.seekg(3, std::ios::beg);
         
         for (int x = 0; x < x_grille; ++x) {
             for (int y = 0; y < y_grille; ++y) {

@@ -90,7 +90,7 @@ void Grille::CalculSurvie(){
 }
 
 int Grille::TaillePile() {
-    return CelluleTransition.size();
+    return CelluleVivantePile.size();
 }
 
 bool Grille::estStable() const {
