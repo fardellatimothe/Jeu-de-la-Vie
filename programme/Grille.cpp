@@ -1,6 +1,7 @@
 #include "Grille.h"
 
-Grille::Grille(vector<vector<int>>& matrice) {
+Grille::Grille(vector<vector<int>>& matrice, bool grilleTorique) {
+    this->grilleTorique = grilleTorique;
     CelluleExiste.resize(matrice.size(), vector<Cellule*>(matrice[0].size(), nullptr));
     for (int i = 0; i < matrice.size(); ++i) {
         for (int j = 0; j < matrice[0].size(); ++j) {
@@ -39,8 +40,16 @@ void Grille::CalculVoisin() {
         int largeur = CelluleExiste[0].size(); // Nombre de colonnes
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
-                int newX = x + i;
-                int newY = y + j;
+                
+                int newX, newY
+                ;
+                if (grilleTorique){
+                    newX = (x + i + hauteur) % hauteur;
+                    newY = (y + j + largeur) % largeur;
+                } else {
+                    newX = x + i;
+                    newY = y + j;
+                }
 
                 if (newX >= 0 && newX < hauteur && newY >= 0 && newY < largeur && !(i == 0 && j == 0)) {
                     if (CelluleExiste[newX][newY] == nullptr) {

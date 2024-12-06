@@ -1,11 +1,11 @@
 #include "Controleur.h"
 
-void Controleur::start(string chemin_initial, string chemin_sauvegarde, int iteration_max){    
+void Controleur::start(string chemin_initial, string chemin_sauvegarde, int iteration_max, bool grilleTorique){    
     GestionFichier gestionFichier(chemin_initial, chemin_sauvegarde);
     vector<std::vector<int>>* test = gestionFichier.lireEtatInitial();
 
     Console console(test);
-    Grille grille(*test);
+    Grille grille(*test, grilleTorique);
 
     grille.ajouterObservateurs(&console);
     console.afficherMatrice();
@@ -17,13 +17,13 @@ void Controleur::start(string chemin_initial, string chemin_sauvegarde, int iter
     }
 }
 
-void Controleur::start(string chemin_initial, double vitesse){
+void Controleur::start(string chemin_initial, double vitesse, bool grilleTorique){
     auto test1 = chrono::high_resolution_clock::now();
     GestionFichier gestionFichier(chemin_initial, "");
     vector<std::vector<int>>* test = gestionFichier.lireEtatInitial();
 
     Graphique graphique = Graphique(*test);
-    Grille grille(*test);
+    Grille grille(*test, grilleTorique);
 
     grille.ajouterObservateurs(&graphique);
     

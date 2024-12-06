@@ -15,12 +15,12 @@
 using namespace std;
 
 class Controleur {
-    int iteration;
+    int iteration=0;
 public:
     Controleur(){}
     ~Controleur(){}
-    void start(string chemin_initial, string chemin_sauvegarde, int iteration_max); // mode console
-    void start(string chemin_initial, double vitesse); // Mode Graphique
+    void start(string chemin_initial, string chemin_sauvegarde, int iteration_max, bool grilleTorique); // mode console
+    void start(string chemin_initial, double vitesse, bool grilleTorique); // Mode Graphique
 };
 
 #endif

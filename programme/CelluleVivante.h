@@ -5,7 +5,7 @@
 
 class CelluleVivante : public Cellule {
 private:
-    bool obstacle;
+    bool obstacle=false;
 public:
     CelluleVivante(int x, int y, bool obstacle);
     CelluleVivante(int x, int y);
