@@ -51,8 +51,11 @@ int main(int argc, char* argv[]) {
         bool grilleTorique;
         if (str_grilleTorique == "true") {
             grilleTorique = true;
-        } else {
+        } else if (str_grilleTorique == "false"){
             grilleTorique = false;
+        } else {
+            cerr << "Erreur mode grille torique: Utilisez 'true' ou 'false' pour le mode grille torique.\n";
+            return 1;
         }
         cout << "Test : " << grilleTorique << endl; // Active l'affichage "true"/"false"
 
