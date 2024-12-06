@@ -20,23 +20,43 @@ int main(int argc, char* argv[]) {
     string mode = argv[1];
 
     if (mode == "console") {
-        if (argc < 5) {
+        if (argc < 6) {
             cerr << "Paramètres insuffisants pour le mode Console.\n";
             return 1;
         }
         string fichier_input = argv[2];
         string fichier_output = argv[3];
         int iteration_max = stod(argv[4]);
-        jeu_de_la_vie.start(fichier_input, fichier_output, iteration_max);
+        
+        string str_grilleTorique = argv[5];
+        bool grilleTorique;
+        if (str_grilleTorique == "true") {
+            grilleTorique = true;
+        } else {
+            grilleTorique = false;
+        }
+
+        cout << "Test : " << grilleTorique << endl; // Active l'affichage "true"/"false"
+
+        jeu_de_la_vie.start(fichier_input, fichier_output, iteration_max, grilleTorique);
 
     } else if (mode == "graphique") {
-        if (argc < 4) {
+        if (argc < 5) {
             cerr << "Paramètres insuffisants pour le mode Graphique.\n";
             return 1;
         }
         string fichier_input = argv[2];
         double vitesse = stod(argv[3]);
-        jeu_de_la_vie.start(fichier_input, vitesse);
+        string str_grilleTorique = argv[4];
+        bool grilleTorique;
+        if (str_grilleTorique == "true") {
+            grilleTorique = true;
+        } else {
+            grilleTorique = false;
+        }
+        cout << "Test : " << grilleTorique << endl; // Active l'affichage "true"/"false"
+
+        jeu_de_la_vie.start(fichier_input, vitesse, grilleTorique);
     } else {
         cerr << "Mode inconnu. Utilisez 'console' ou 'graphique'.\n";
         return 1;
