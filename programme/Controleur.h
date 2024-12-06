@@ -15,7 +15,7 @@
 using namespace std;
 
 class Controleur {
-    int iteration;
+    int iteration=0;
 public:
     Controleur(){}
     ~Controleur(){}

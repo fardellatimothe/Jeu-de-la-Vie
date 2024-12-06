@@ -7,7 +7,7 @@ using namespace std;
 class Cellule {
 
 protected:
-    int nbVoisinesVivantes;
+    int nbVoisinesVivantes=0;
     int x, y;    
 
 public:
