@@ -94,7 +94,7 @@ void Graphique::update(int x, int y, int etat) {
     cellule.setFillColor(etat == 1 ? sf::Color::White : sf::Color::Black);
 
     jeu.draw(cellule);
- }
+}
 
 void Graphique::update_grille(){
     jeu.display();
@@ -106,6 +106,28 @@ void Graphique::handleEvents() {
     while (jeu.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             jeu.close();
+        } else if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::Space) {
+                jeu.close();
+            }
+        }
+    }
+}
+
+void Graphique::detectionVitesse(double *vitesse) {
+    sf::Event eventv;
+    while (jeu.pollEvent(eventv)) {
+        if (eventv.type == sf::Event::KeyPressed) {
+            if (eventv.key.code == sf::Keyboard::Space) {
+                jeu.close();
+            } else if (eventv.key.code == sf::Keyboard::Up) {
+                std::cout << "fleche haut";
+                *vitesse+=0.1;
+            } else if (eventv.key.code == sf::Keyboard::Down) {
+                std::cout << "fleche bas";
+                *vitesse-=0.1;
+                
+            }
         }
     }
 }

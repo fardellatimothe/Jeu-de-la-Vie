@@ -19,8 +19,11 @@ class Controleur {
 public:
     Controleur(){}
     ~Controleur(){}
+
     void start(string chemin_initial, string chemin_sauvegarde, int iteration_max); // mode console
-    void start(string chemin_initial, double vitesse); // Mode Graphique
+    void start(string chemin_initial, double &vitesse); // Mode Graphique
+    void start(string chemin_initial, string chemin_sauvegarde, int iteration_max, double &vitesse); // 2 modes
+    bool test(string fichier_base, string fichier_attendu, int iteration_test); // Mode de test unitaire
 };
 
 #endif

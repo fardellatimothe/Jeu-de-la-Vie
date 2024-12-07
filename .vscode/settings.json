@@ -61,6 +61,7 @@
         "optional": "cpp",
         "regex": "cpp",
         "typeindex": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "cinttypes": "cpp"
     }
 }

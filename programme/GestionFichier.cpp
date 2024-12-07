@@ -7,15 +7,15 @@
 #include <filesystem>
 
 // Constructeur
-GestionFichier::GestionFichier(std::string path) : cheminInitialisation(path), ite(0) {}
+GestionFichier::GestionFichier() : ite(0) {}
 
 
 // Constructeur Parametré
-GestionFichier::GestionFichier(std::string path, std::string output) : cheminInitialisation(path), cheminSauvegarde(output), ite(0) {}
+GestionFichier::GestionFichier(std::string output) : cheminSauvegarde(output), ite(0) {}
 
 
 // Lire l'état initial des cellules dans le fichier
-std::vector<std::vector<int>>* GestionFichier::lireEtatInitial() {
+std::vector<std::vector<int>>* GestionFichier::lireEtatInitial(std::string cheminInitialisation) {
     std::ifstream fichier(cheminInitialisation);
     if (fichier.is_open()) {
         fichier >> x_grille >> y_grille;

@@ -8,18 +8,17 @@
 
 class GestionFichier {
     private:
-        std::string cheminInitialisation;
         std::string cheminSauvegarde;
         int x_grille;
         int y_grille;
         int ite;
 
     public: 
-        GestionFichier(std::string path);
-        GestionFichier(std::string path, std::string output);
+        GestionFichier();
+        GestionFichier(std::string output);
 
 
-        std::vector<std::vector<int>>* lireEtatInitial();
+        std::vector<std::vector<int>>* lireEtatInitial(std::string cheminInitialisation);
         void sauvegarderEtat(std::vector<std::vector<int>>* matrice_grille);
 
         ~GestionFichier();
