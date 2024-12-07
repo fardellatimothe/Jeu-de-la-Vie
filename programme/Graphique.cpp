@@ -108,7 +108,7 @@ void Graphique::handleEvents() {
         if (event.type == sf::Event::Closed) {
             jeu.close();
         } else if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::Space) {
+            if (event.key.code == sf::Keyboard::Escape) {
                 jeu.close();
             }
         }
@@ -123,7 +123,7 @@ void Graphique::detectionVitesse(double *vitesse) {
 
     while (jeu.pollEvent(eventv)) {
         if (eventv.type == sf::Event::KeyPressed) {
-            if (eventv.key.code == sf::Keyboard::Space) {
+            if (eventv.key.code == sf::Keyboard::Escape) {
                 jeu.close();
             }
         }
@@ -135,11 +135,12 @@ void Graphique::detectionVitesse(double *vitesse) {
             *vitesse *= 1.1;
             std::cout << "Vitesse actuelle : " << *vitesse << std::endl;
             lastUpdate = now;
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
             *vitesse *= 0.9;
             std::cout << "Vitesse actuelle : " << *vitesse << std::endl;
+            lastUpdate = now;
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+            *vitesse = 999999;
             lastUpdate = now;
         }
     }
