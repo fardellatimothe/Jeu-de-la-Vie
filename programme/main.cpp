@@ -1,8 +1,5 @@
 #include <iostream>
 #include "Controleur.h"
-using namespace std;
-
-#include <iostream>
 #include <string>
 #include <chrono>
 using namespace std;
