@@ -63,8 +63,6 @@ void Controleur::start(string chemin_initial, double &vitesse){
         grille.calculerProchaineIteration();
         iteration++;
         graphique.update_grille();
-        graphique.handleEvents();
-        graphique.detectionVitesse(&vitesse);
         auto start = chrono::high_resolution_clock::now();
         while ((chrono::high_resolution_clock::now() - start) < chrono::duration<double>(vitesse))
         {
