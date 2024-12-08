@@ -149,6 +149,19 @@ void Graphique::detectionVitesse(double *vitesse) {
     }
 }
 
+void Graphique::detection_click(){
+    sf::Event eventc;
+    while (jeu.pollEvent(eventc)) {
+        if (eventc.type == sf::Event::MouseButtonPressed) {
+                if (eventc.mouseButton.button == sf::Mouse::Left) {
+                    int col = eventc.mouseButton.x / taille_cellule;
+                    int row = eventc.mouseButton.y / taille_cellule;
+                    update(row, col, 1);
+                    update_grille();
+                }
+        }
+    }
+}
 
 // Vérifier si la fenêtre est ouverte
 bool Graphique::fenetreOuverte() const {

@@ -68,6 +68,7 @@ void Controleur::start(string chemin_initial, double &vitesse, bool grilleToriqu
         {
             graphique.handleEvents();
             graphique.detectionVitesse(&vitesse);
+            graphique.detection_click();
             if (!graphique.fenetreOuverte()) return;
         }
     }
