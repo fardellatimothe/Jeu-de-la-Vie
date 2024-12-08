@@ -18,6 +18,8 @@ class Graphique : public Observer {
         void update(int x, int y, int etat) override;
 
         void handleEvents();
+        void detectionVitesse(double *vitesse);
+
         bool fenetreOuverte() const; // Méthode adaptée pour vérifier l'état de la fenêtre
 
         void afficherGrille(const std::vector<std::vector<int>> &matrice); // Nouvelle méthode

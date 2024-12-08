@@ -91,7 +91,7 @@ void Graphique::update(int x, int y, int etat) {
     cellule.setFillColor(etat == 1 ? sf::Color::White : sf::Color::Black);
 
     jeu.draw(cellule);
- }
+}
 
 void Graphique::update_grille(){
     jeu.display();
@@ -103,6 +103,10 @@ void Graphique::handleEvents() {
     while (jeu.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             jeu.close();
+        } else if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::Escape) {
+                jeu.close();
+            }
         }
     }
 }
@@ -137,6 +141,7 @@ void Graphique::detectionVitesse(double *vitesse) {
         }
     }
 }
+
 
 // Vérifier si la fenêtre est ouverte
 bool Graphique::fenetreOuverte() const {
