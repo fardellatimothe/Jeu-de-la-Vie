@@ -1,4 +1,4 @@
-# Le Jeu de la Vie
+# Le Jeu de la Vie en C++
 
 ## 👨‍💻 Auteur
 - **Thivillier Théo**
