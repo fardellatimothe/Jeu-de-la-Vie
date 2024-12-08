@@ -98,7 +98,7 @@ void Graphique::update_grille(){
 }
 
 
-void Graphique::Events(double *vitesse) {
+bool Graphique::Events(double *vitesse, bool *changement_cellule, int *x, int *y, int *etat) {
     sf::Event event;
     static auto lastUpdate = std::chrono::steady_clock::now();
     const auto interval = std::chrono::milliseconds(150);
@@ -142,19 +142,28 @@ void Graphique::Events(double *vitesse) {
             if (event.mouseButton.button == sf::Mouse::Left) {
                 int col = event.mouseButton.x / taille_cellule;
                 int row = event.mouseButton.y / taille_cellule;
+                *x = row;
+                *y = col;
+                *etat = true;
                 update(row, col, 1);
                 update_grille();
+                return true;
             }
         }
         if (event.type == sf::Event::MouseButtonPressed) {
             if (event.mouseButton.button == sf::Mouse::Right) {
                 int col = event.mouseButton.x / taille_cellule;
                 int row = event.mouseButton.y / taille_cellule;
+                *x = row;
+                *y = col;
+                *etat = false;
                 update(row, col, 0);
                 update_grille();
+                return true;
             }
         }
     }
+    return false;
 }
 
 // Vérifier si la fenêtre est ouverte

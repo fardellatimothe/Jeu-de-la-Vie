@@ -22,6 +22,7 @@ public:
     void calculerProchaineIteration();
     void CalculVoisin();
     void CalculSurvie();
+    void ModifCellule(int x, int y, int etat);
     int TaillePile();
     bool estStable() const;
     virtual void notifierObservateur(int x, int y, int etat) override;

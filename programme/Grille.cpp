@@ -128,3 +128,29 @@ void Grille::notifierObservateur(int x, int y, int etat){
         observer->update(x, y, etat);
     }
 }
+
+void Grille::ModifCellule(int x, int y, int etat){
+    Cellule *cellule = CelluleExiste[x][y];
+    if (etat == 1 && cellule == nullptr){
+        Cellule* nouvelle_cellule = new CelluleVivante(x, y);
+        CelluleVivantePile.push(nouvelle_cellule);
+        CelluleExiste[x][y] = nouvelle_cellule;
+
+    } else if (etat == 0 && cellule != nullptr)
+    {
+        std::stack<Cellule*> temp_pile;
+        while (!CelluleVivantePile.empty()) {
+            if (CelluleVivantePile.top() == cellule) {
+                delete CelluleVivantePile.top();
+                CelluleVivantePile.pop();
+            } else {
+                temp_pile.push(CelluleVivantePile.top());
+                CelluleVivantePile.pop();
+            }
+        }
+        while (!temp_pile.empty()){
+            CelluleVivantePile.push(temp_pile.top());
+            temp_pile.pop();
+        }
+    }
+}

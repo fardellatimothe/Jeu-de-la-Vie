@@ -47,6 +47,13 @@ bool Controleur::test(string fichier_base, string fichier_attendu, int iteration
 }
 void Controleur::start(string chemin_initial, double &vitesse, bool grilleTorique){
     auto test1 = chrono::high_resolution_clock::now();
+    
+    // Changement de cellule par click
+    bool changement_cellule = false;
+    int x;
+    int y;
+    int etat;
+
     GestionFichier gestionFichier("");
     vector<std::vector<int>>* test = gestionFichier.lireEtatInitial(chemin_initial);
 
@@ -59,14 +66,16 @@ void Controleur::start(string chemin_initial, double &vitesse, bool grilleToriqu
     
     cout << grille.TaillePile() << endl;
 
-    while (graphique.fenetreOuverte() && !(grille.estStable())){
+    while (graphique.fenetreOuverte()){
         grille.calculerProchaineIteration();
         iteration++;
         graphique.update_grille();
         auto start = chrono::high_resolution_clock::now();
         while ((chrono::high_resolution_clock::now() - start) < chrono::duration<double>(vitesse))
         {
-            graphique.Events(&vitesse);
+            if (graphique.Events(&vitesse, &changement_cellule, &x, &y, &etat)){
+                grille.ModifCellule(x, y, etat);
+            }
             if (!graphique.fenetreOuverte()) return;
         }
     }
@@ -77,6 +86,13 @@ void Controleur::start(string chemin_initial, double &vitesse, bool grilleToriqu
 
 void Controleur::start(string chemin_initial, string chemin_sauvegarde, int iteration_max, double &vitesse, bool grilleTorique) {
     auto test1 = chrono::high_resolution_clock::now();
+
+    // Changement de cellule par click
+    bool changement_cellule = false;
+    int x;
+    int y;
+    int etat;
+
     GestionFichier gestionFichier(chemin_sauvegarde);
     vector<std::vector<int>>* test = gestionFichier.lireEtatInitial(chemin_initial);
 
@@ -97,7 +113,9 @@ void Controleur::start(string chemin_initial, string chemin_sauvegarde, int iter
 
         auto start = chrono::high_resolution_clock::now();
         while ((chrono::high_resolution_clock::now() - start) < chrono::duration<double>(vitesse)) {
-            graphique.Events(&vitesse);
+            if (graphique.Events(&vitesse, &changement_cellule, &x, &y, &etat)){
+                grille.ModifCellule(x, y, etat);
+            }
             if (!graphique.fenetreOuverte()) return;
         }
     }
