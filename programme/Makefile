@@ -8,18 +8,17 @@ SRC_DIR = Source
 INC_DIR = Include
 
 SRCS = $(wildcard $(SRC_DIR)/*.cpp)
-MAIN = main.cpp
 HEADERS = $(wildcard $(INC_DIR)/*.h)
 
 TARGET = jeu_de_la_vie
 
 all: $(TARGET)
 
-$(TARGET): $(SRCS) $(MAIN) $(HEADERS)
-	$(CXX) $(CXXFLAGS) $(SRCS) $(MAIN) -o $@
+$(TARGET): $(SRCS) $(HEADERS)
+	$(CXX) $(CXXFLAGS) $(SRCS) -o $@
 
-debug: $(SRCS) $(MAIN) $(HEADERS)
-	$(CXX) $(CXXFLAGS) -U_FORTIFY_SOURCE -O0 $(SRCS) $(MAIN) -o $(TARGET)-debug
+debug: $(SRCS) $(HEADERS)
+	$(CXX) $(CXXFLAGS) -U_FORTIFY_SOURCE -O0 $(SRCS) -o $(TARGET)-debug
 
 clean:
 	rm -f $(TARGET) $(TARGET)-debug
