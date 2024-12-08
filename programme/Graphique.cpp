@@ -97,10 +97,14 @@ void Graphique::update_grille(){
     jeu.display();
 }
 
-// Gérer les événements de la fenêtre
-void Graphique::handleEvents() {
+
+void Graphique::Events(double *vitesse) {
     sf::Event event;
+    static auto lastUpdate = std::chrono::steady_clock::now();
+    const auto interval = std::chrono::milliseconds(150);
     while (jeu.pollEvent(event)) {
+
+        // event fermeture
         if (event.type == sf::Event::Closed) {
             jeu.close();
         } else if (event.type == sf::Event::KeyPressed) {
@@ -108,57 +112,47 @@ void Graphique::handleEvents() {
                 jeu.close();
             }
         }
-    }
-}
 
-void Graphique::detectionVitesse(double *vitesse) {
-    sf::Event eventv;
-    static auto lastUpdate = std::chrono::steady_clock::now();
-    const auto interval = std::chrono::milliseconds(150);
-
-    while (jeu.pollEvent(eventv)) {
-        if (eventv.type == sf::Event::KeyPressed) {
-            if (eventv.key.code == sf::Keyboard::Escape) {
-                jeu.close();
-            }
-        }
-    }
-
-    auto now = std::chrono::steady_clock::now();
-    if (now - lastUpdate > interval) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            *vitesse *= 1.1;
-            std::cout << "Vitesse actuelle : " << *vitesse << std::endl;
-            lastUpdate = now;
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            *vitesse *= 0.9;
-            std::cout << "Vitesse actuelle : " << *vitesse << std::endl;
-            lastUpdate = now;
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-            if (pause == true){
-                *vitesse = temp_vitesse;
-                pause = false;
+        // event vitesse
+        auto now = std::chrono::steady_clock::now();
+        if (now - lastUpdate > interval) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+                *vitesse *= 1.1;
+                std::cout << "Vitesse actuelle : " << *vitesse << std::endl;
                 lastUpdate = now;
-            } else {
-                temp_vitesse = *vitesse;
-                *vitesse = 999999;
-                pause = true;
+            } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+                *vitesse *= 0.9;
+                std::cout << "Vitesse actuelle : " << *vitesse << std::endl;
                 lastUpdate = now;
-            }
-        }
-    }
-}
-
-void Graphique::detection_click(){
-    sf::Event eventc;
-    while (jeu.pollEvent(eventc)) {
-        if (eventc.type == sf::Event::MouseButtonPressed) {
-                if (eventc.mouseButton.button == sf::Mouse::Left) {
-                    int col = eventc.mouseButton.x / taille_cellule;
-                    int row = eventc.mouseButton.y / taille_cellule;
-                    update(row, col, 1);
-                    update_grille();
+            } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+                if (pause == true){
+                    *vitesse = temp_vitesse;
+                    pause = false;
+                    lastUpdate = now;
+                } else {
+                    temp_vitesse = *vitesse;
+                    *vitesse = 999999;
+                    pause = true;
+                    lastUpdate = now;
                 }
+            }
+        }
+
+        if (event.type == sf::Event::MouseButtonPressed) {
+            if (event.mouseButton.button == sf::Mouse::Left) {
+                int col = event.mouseButton.x / taille_cellule;
+                int row = event.mouseButton.y / taille_cellule;
+                update(row, col, 1);
+                update_grille();
+            }
+        }
+        if (event.type == sf::Event::MouseButtonPressed) {
+            if (event.mouseButton.button == sf::Mouse::Right) {
+                int col = event.mouseButton.x / taille_cellule;
+                int row = event.mouseButton.y / taille_cellule;
+                update(row, col, 0);
+                update_grille();
+            }
         }
     }
 }

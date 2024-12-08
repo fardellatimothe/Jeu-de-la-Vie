@@ -66,9 +66,7 @@ void Controleur::start(string chemin_initial, double &vitesse, bool grilleToriqu
         auto start = chrono::high_resolution_clock::now();
         while ((chrono::high_resolution_clock::now() - start) < chrono::duration<double>(vitesse))
         {
-            graphique.handleEvents();
-            graphique.detectionVitesse(&vitesse);
-            graphique.detection_click();
+            graphique.Events(&vitesse);
             if (!graphique.fenetreOuverte()) return;
         }
     }
@@ -99,8 +97,7 @@ void Controleur::start(string chemin_initial, string chemin_sauvegarde, int iter
 
         auto start = chrono::high_resolution_clock::now();
         while ((chrono::high_resolution_clock::now() - start) < chrono::duration<double>(vitesse)) {
-            graphique.handleEvents();
-            graphique.detectionVitesse(&vitesse);
+            graphique.Events(&vitesse);
             if (!graphique.fenetreOuverte()) return;
         }
     }
