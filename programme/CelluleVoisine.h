@@ -7,8 +7,8 @@ class CelluleVoisine : public Cellule {
 public:
     CelluleVoisine(int x, int y);
     virtual ~CelluleVoisine() override{}
-    virtual bool calculerProchainEtat() override;
-    virtual int etat() const override;
+    virtual bool CalculerProchainEtat() override;
+    virtual int Etat() const override;
 };
 
 #endif

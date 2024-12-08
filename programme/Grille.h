@@ -10,22 +10,22 @@
 
 class Grille : public Observable{
 private:
-    stack<Cellule*> CelluleVivantePile;
-    stack<Cellule*> CelluleTransition;
-    vector<vector<Cellule*>> CelluleExiste;
-    int nbVoisin(int x, int y);
+    stack<Cellule*> cell_vivante_pile;
+    stack<Cellule*> temp_pile;
+    vector<vector<Cellule*>> existe_pile;
+    int nb_voisin(int x, int y);
     bool stable=false;
-    bool grilleTorique;
+    bool grille_torique=false;
 
 public:
-    Grille(vector<vector<int>>& matrice, bool grilleTorique);
-    void calculerProchaineIteration();
+    Grille(vector<vector<int>>& matrice, bool grille_torique);
+    void CalculerProchaineIteration();
     void CalculVoisin();
     void CalculSurvie();
     void ModifCellule(int x, int y, int etat);
     int TaillePile();
-    bool estStable() const;
-    virtual void notifierObservateur(int x, int y, int etat) override;
+    bool EstStable() const;
+    virtual void NotifObservateur(int x, int y, int etat) override;
 };
 
 #endif

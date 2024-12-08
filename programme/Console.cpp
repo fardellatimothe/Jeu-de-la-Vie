@@ -1,16 +1,16 @@
 #include "Console.h"
 
-void Console::update(int x, int y, int etat){
-    Matrice->at(x).at(y) = etat;
+void Console::Update(int x, int y, int etat){
+    matrice->at(x).at(y) = etat;
 }
 
-Console::Console(vector<vector<int>>* grid) : Matrice(grid) {}
+Console::Console(vector<vector<int>>* grid) : matrice(grid) {}
 
-// void Console::afficherMatrice() const {
-//     for (const auto& ligne : *Matrice) {
-//         for (int val : ligne) {
-//             std::cout << val << " ";
-//         }
-//         std::cout << "\n";
-//     }
-// }
+void Console::AfficherMatrice() const {
+    for (const auto& ligne : *matrice) {
+        for (int val : ligne) {
+            cout << val << " ";
+        }
+        cout << "\n";
+    }
+}

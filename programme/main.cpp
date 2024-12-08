@@ -27,18 +27,18 @@ int main(int argc, char* argv[]) {
         string fichier_output = argv[3];
         int iteration_max = stod(argv[4]);
         
-        string str_grilleTorique = argv[5];
-        bool grilleTorique;
-        if (str_grilleTorique == "true") {
-            grilleTorique = true;
+        string str_grille_torique = argv[5];
+        bool grille_torique;
+        if (str_grille_torique == "true") {
+            grille_torique = true;
         } else {
-            grilleTorique = false;
+            grille_torique = false;
         }
 
-        cout << "Test : " << grilleTorique << endl; // Active l'affichage "true"/"false"
+        cout << "Test : " << grille_torique << endl; // Active l'affichage "true"/"false"
 
         if(!jeu_de_la_vie.test("Test/test_unitaire1.txt", "Test/test_unitaire2.txt", 5)) return 0; // test unitaire
-        jeu_de_la_vie.start(fichier_input, fichier_output, iteration_max, grilleTorique);
+        jeu_de_la_vie.start(fichier_input, fichier_output, iteration_max, grille_torique);
 
     } else if (mode == "graphique") {
         if (argc < 5) {
@@ -47,20 +47,20 @@ int main(int argc, char* argv[]) {
         }
         string fichier_input = argv[2];
         double vitesse = stod(argv[3]);
-        string str_grilleTorique = argv[4];
-        bool grilleTorique;
-        if (str_grilleTorique == "true") {
-            grilleTorique = true;
-        } else if (str_grilleTorique == "false"){
-            grilleTorique = false;
+        string str_grille_torique = argv[4];
+        bool grille_torique;
+        if (str_grille_torique == "true") {
+            grille_torique = true;
+        } else if (str_grille_torique == "false"){
+            grille_torique = false;
         } else {
             cerr << "Erreur mode grille torique: Utilisez 'true' ou 'false' pour le mode grille torique.\n";
             return 1;
         }
-        cout << "Test : " << grilleTorique << endl; // Active l'affichage "true"/"false"
+        cout << "Test : " << grille_torique << endl; // Active l'affichage "true"/"false"
 
         if(!jeu_de_la_vie.test("Test/test_unitaire1.txt", "Test/test_unitaire2.txt", 5)) return 0; // test unitaire
-        jeu_de_la_vie.start(fichier_input, vitesse, grilleTorique);
+        jeu_de_la_vie.start(fichier_input, vitesse, grille_torique);
     } else if (mode == "gc") {
         if (argc < 6) {
             cerr << "Paramètres insuffisants pour lancer les deux modes.\n";

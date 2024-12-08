@@ -1,23 +1,23 @@
 #include "Cellule.h"
 
-Cellule::Cellule(int x, int y) : nbVoisinesVivantes(0), x(x), y(y) {}
+Cellule::Cellule(int x, int y) : nb_voisines_vivantes(0), x(x), y(y) {}
 
 void Cellule::IncrementerVoisinesVivantes() {
-    nbVoisinesVivantes++;
+    nb_voisines_vivantes++;
 }
 
-int Cellule::getx() const {
+int Cellule::GetX() const {
     return x;
 }
 
-int Cellule::gety() const {
+int Cellule::GetY() const {
     return y;
 }
 
-int Cellule::getVoisin() const {
-    return nbVoisinesVivantes;
+int Cellule::GetVoisin() const {
+    return nb_voisines_vivantes;
 }
 
-void Cellule::resetVoisin(){
-    nbVoisinesVivantes = 0;
+void Cellule::ResetVoisin(){
+    nb_voisines_vivantes = 0;
 }

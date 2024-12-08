@@ -5,21 +5,20 @@
 using namespace std;
 
 class Cellule {
-
-protected:
-    int nbVoisinesVivantes=0;
-    int x, y;    
-
 public:
     Cellule(int x, int y);
     virtual ~Cellule() {}
-    virtual bool calculerProchainEtat() = 0;
+    virtual bool CalculerProchainEtat() = 0;
     void IncrementerVoisinesVivantes();
-    int getx() const;
-    int gety() const;
-    int getVoisin() const;
-    void resetVoisin();
-    virtual int etat() const = 0;
+    int GetX() const;
+    int GetY() const;
+    int GetVoisin() const;
+    void ResetVoisin();
+    virtual int Etat() const = 0;
+
+protected:
+    int nb_voisines_vivantes=0;
+    int x, y;    
 };
 
 #endif

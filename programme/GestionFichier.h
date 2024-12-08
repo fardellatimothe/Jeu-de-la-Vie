@@ -5,21 +5,22 @@
 #include <string>
 #include <vector>
 
+using namespace std;
 
 class GestionFichier {
     private:
-        std::string cheminSauvegarde;
+        string chemin_sauvegarde;
         int x_grille;
         int y_grille;
         int ite;
 
     public: 
         GestionFichier();
-        GestionFichier(std::string output);
+        GestionFichier(string output);
 
 
-        std::vector<std::vector<int>>* lireEtatInitial(std::string cheminInitialisation);
-        void sauvegarderEtat(std::vector<std::vector<int>>* matrice_grille);
+        vector<vector<int>>* LireEtatInitial(string chemin_initialisation);
+        void SauvegarderEtat(vector<vector<int>>* matrice_grille);
 
         ~GestionFichier();
 };

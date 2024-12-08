@@ -11,8 +11,8 @@ public:
     CelluleVivante(int x, int y);
 
     virtual ~CelluleVivante() override{}
-    virtual bool calculerProchainEtat() override;
-    virtual int etat() const override;
+    virtual bool CalculerProchainEtat() override;
+    virtual int Etat() const override;
 };
 
 #endif

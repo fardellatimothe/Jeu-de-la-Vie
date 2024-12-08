@@ -2,36 +2,36 @@
 
 void Controleur::start(string chemin_initial, string chemin_sauvegarde, int iteration_max, bool grilleTorique){    
     GestionFichier gestionFichier(chemin_sauvegarde);
-    vector<std::vector<int>>* test = gestionFichier.lireEtatInitial(chemin_initial);
+    vector<std::vector<int>>* test = gestionFichier.LireEtatInitial(chemin_initial);
 
     Console console(test);
     Grille grille(*test, grilleTorique);
 
-    grille.ajouterObservateurs(&console);
+    grille.AjtObservateurs(&console);
     // console.afficherMatrice();
 
     for (int i=0; i<iteration_max; i++){
-        grille.calculerProchaineIteration();
-        gestionFichier.sauvegarderEtat(test);
-        if (grille.estStable()) return;
+        grille.CalculerProchaineIteration();
+        gestionFichier.SauvegarderEtat(test);
+        if (grille.EstStable()) return;
     }
 }
 
 bool Controleur::test(string fichier_base, string fichier_attendu, int iteration_test) {
     GestionFichier gestionFichier = GestionFichier();
-    vector<std::vector<int>>* test = gestionFichier.lireEtatInitial(fichier_base);
+    vector<std::vector<int>>* test = gestionFichier.LireEtatInitial(fichier_base);
 
     Console console(test);
     Grille grille(*test, false);
 
-    grille.ajouterObservateurs(&console);
+    grille.AjtObservateurs(&console);
     // console.afficherMatrice();
 
     for (int i=0; i<iteration_test; i++){
-        grille.calculerProchaineIteration();
+        grille.CalculerProchaineIteration();
     }
 
-    vector<std::vector<int>>* testu = gestionFichier.lireEtatInitial(fichier_attendu);
+    vector<std::vector<int>>* testu = gestionFichier.LireEtatInitial(fichier_attendu);
     
     for (size_t i = 0; i < test->size(); ++i) {
         for (size_t j = 0; j < (*test)[0].size(); ++j) {
@@ -55,28 +55,28 @@ void Controleur::start(string chemin_initial, double &vitesse, bool grilleToriqu
     int etat;
 
     GestionFichier gestionFichier("");
-    vector<std::vector<int>>* test = gestionFichier.lireEtatInitial(chemin_initial);
+    vector<std::vector<int>>* test = gestionFichier.LireEtatInitial(chemin_initial);
 
     Graphique graphique = Graphique(*test);
     Grille grille(*test, grilleTorique);
 
-    grille.ajouterObservateurs(&graphique);
+    grille.AjtObservateurs(&graphique);
     
-    graphique.initialiser(*test);
+    graphique.Initialisation(*test);
     
     cout << grille.TaillePile() << endl;
 
-    while (graphique.fenetreOuverte()){
-        grille.calculerProchaineIteration();
+    while (graphique.FenetreOuverte()){
+        grille.CalculerProchaineIteration();
         iteration++;
-        graphique.update_grille();
+        graphique.UpdateGrille();
         auto start = chrono::high_resolution_clock::now();
         while ((chrono::high_resolution_clock::now() - start) < chrono::duration<double>(vitesse))
         {
             if (graphique.Events(&vitesse, &changement_cellule, &x, &y, &etat)){
                 grille.ModifCellule(x, y, etat);
             }
-            if (!graphique.fenetreOuverte()) return;
+            if (!graphique.FenetreOuverte()) return;
         }
     }
     auto end = chrono::high_resolution_clock::now();
@@ -94,29 +94,29 @@ void Controleur::start(string chemin_initial, string chemin_sauvegarde, int iter
     int etat;
 
     GestionFichier gestionFichier(chemin_sauvegarde);
-    vector<std::vector<int>>* test = gestionFichier.lireEtatInitial(chemin_initial);
+    vector<std::vector<int>>* test = gestionFichier.LireEtatInitial(chemin_initial);
 
     Console console(test);
     Graphique graphique = Graphique(*test);
     Grille grille(*test, grilleTorique);
 
-    grille.ajouterObservateurs(&graphique);
-    grille.ajouterObservateurs(&console);
+    grille.AjtObservateurs(&graphique);
+    grille.AjtObservateurs(&console);
 
-    graphique.initialiser(*test);
+    graphique.Initialisation(*test);
 
-    while (graphique.fenetreOuverte() && !(grille.estStable()) && (Controleur::iteration < iteration_max)) {
-        grille.calculerProchaineIteration();
+    while (graphique.FenetreOuverte() && !(grille.EstStable()) && (Controleur::iteration < iteration_max)) {
+        grille.CalculerProchaineIteration();
         iteration++;
-        gestionFichier.sauvegarderEtat(test);
-        graphique.update_grille();
+        gestionFichier.SauvegarderEtat(test);
+        graphique.UpdateGrille();
 
         auto start = chrono::high_resolution_clock::now();
         while ((chrono::high_resolution_clock::now() - start) < chrono::duration<double>(vitesse)) {
             if (graphique.Events(&vitesse, &changement_cellule, &x, &y, &etat)){
                 grille.ModifCellule(x, y, etat);
             }
-            if (!graphique.fenetreOuverte()) return;
+            if (!graphique.FenetreOuverte()) return;
         }
     }
     auto end = chrono::high_resolution_clock::now();

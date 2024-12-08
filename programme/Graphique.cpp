@@ -6,12 +6,12 @@
 
 
 
-Graphique::Graphique(std::vector<std::vector<int>> &matrice) {
+Graphique::Graphique(vector<vector<int>> &matrice) {
     int lignes = matrice.size();
     int colonnes = matrice[0].size();
 
     const int taille_fenetre_max = 800;
-    taille_cellule = std::min(taille_fenetre_max / colonnes, taille_fenetre_max / lignes);
+    taille_cellule = min(taille_fenetre_max / colonnes, taille_fenetre_max / lignes);
 
     // Taille minimale pour éviter que les cellules soient trop petites
     if (taille_cellule < 1) {
@@ -27,7 +27,7 @@ Graphique::Graphique(std::vector<std::vector<int>> &matrice) {
 
 
 // Initialiser la grille
-void Graphique::initialiser(std::vector<std::vector<int>> &matrice) {
+void Graphique::Initialisation(vector<vector<int>> &matrice) {
 
     sf::RectangleShape cellule(sf::Vector2f(taille_cellule - 1.0f, taille_cellule - 1.0f));
     for (int x = 0; x < matrice.size(); ++x) {
@@ -36,13 +36,11 @@ void Graphique::initialiser(std::vector<std::vector<int>> &matrice) {
                 cellule.setPosition(y * taille_cellule, x * taille_cellule);
                 cellule.setFillColor(sf::Color::White);
                 jeu.draw(cellule);
-            } else if (matrice[x][y] == 2)
-            {
+            } else if (matrice[x][y] == 2) {
                 cellule.setPosition(y * taille_cellule, x * taille_cellule);
                 cellule.setFillColor(sf::Color::Green);
                 jeu.draw(cellule);
-            } else if (matrice[x][y] == 3)
-            {
+            } else if (matrice[x][y] == 3) {
                 cellule.setPosition(y * taille_cellule, x * taille_cellule);
                 cellule.setFillColor(sf::Color::Red);
                 jeu.draw(cellule);
@@ -53,7 +51,7 @@ void Graphique::initialiser(std::vector<std::vector<int>> &matrice) {
 }
 
 // Afficher la grille à partir de la matrice
-void Graphique::afficherGrille(const std::vector<std::vector<int>> &matrice) {
+void Graphique::AfficherGrille(const vector<vector<int>> &matrice) {
 
     int lignes = matrice.size();
     int colonnes = matrice[0].size();
@@ -67,13 +65,11 @@ void Graphique::afficherGrille(const std::vector<std::vector<int>> &matrice) {
                 cellule.setPosition(y * taille_cellule, x * taille_cellule);
                 cellule.setFillColor(sf::Color::White);
                 jeu.draw(cellule);
-            } else if (matrice[x][y] == 2)
-            {
+            } else if (matrice[x][y] == 2) {
                 cellule.setPosition(y * taille_cellule, x * taille_cellule);
                 cellule.setFillColor(sf::Color::Green);
                 jeu.draw(cellule);
-            } else if (matrice[x][y] == 3)
-            {
+            } else if (matrice[x][y] == 3) {
                 cellule.setPosition(y * taille_cellule, x * taille_cellule);
                 cellule.setFillColor(sf::Color::Red);
                 jeu.draw(cellule);
@@ -85,7 +81,7 @@ void Graphique::afficherGrille(const std::vector<std::vector<int>> &matrice) {
 }
 
 // Mettre à jour une cellule dans la grille
-void Graphique::update(int x, int y, int etat) {
+void Graphique::Update(int x, int y, int etat) {
     sf::RectangleShape cellule(sf::Vector2f(taille_cellule - 1.0f, taille_cellule - 1.0f));
     cellule.setPosition(y * taille_cellule, x * taille_cellule);
     cellule.setFillColor(etat == 1 ? sf::Color::White : sf::Color::Black);
@@ -93,15 +89,15 @@ void Graphique::update(int x, int y, int etat) {
     jeu.draw(cellule);
 }
 
-void Graphique::update_grille(){
+void Graphique::UpdateGrille(){
     jeu.display();
 }
 
 
 bool Graphique::Events(double *vitesse, bool *changement_cellule, int *x, int *y, int *etat) {
     sf::Event event;
-    static auto lastUpdate = std::chrono::steady_clock::now();
-    const auto interval = std::chrono::milliseconds(150);
+    static auto lastUpdate = chrono::steady_clock::now();
+    const auto interval = chrono::milliseconds(150);
     while (jeu.pollEvent(event)) {
 
         // event fermeture
@@ -114,15 +110,15 @@ bool Graphique::Events(double *vitesse, bool *changement_cellule, int *x, int *y
         }
 
         // event vitesse
-        auto now = std::chrono::steady_clock::now();
+        auto now = chrono::steady_clock::now();
         if (now - lastUpdate > interval) {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
                 *vitesse *= 1.1;
-                std::cout << "Vitesse actuelle : " << *vitesse << std::endl;
+                cout << "Vitesse actuelle : " << *vitesse << endl;
                 lastUpdate = now;
             } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
                 *vitesse *= 0.9;
-                std::cout << "Vitesse actuelle : " << *vitesse << std::endl;
+                cout << "Vitesse actuelle : " << *vitesse << endl;
                 lastUpdate = now;
             } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
                 if (pause == true){
@@ -145,8 +141,8 @@ bool Graphique::Events(double *vitesse, bool *changement_cellule, int *x, int *y
                 *x = row;
                 *y = col;
                 *etat = true;
-                update(row, col, 1);
-                update_grille();
+                Update(row, col, 1);
+                UpdateGrille();
                 return true;
             }
         }
@@ -157,8 +153,8 @@ bool Graphique::Events(double *vitesse, bool *changement_cellule, int *x, int *y
                 *x = row;
                 *y = col;
                 *etat = false;
-                update(row, col, 0);
-                update_grille();
+                Update(row, col, 0);
+                UpdateGrille();
                 return true;
             }
         }
@@ -166,8 +162,12 @@ bool Graphique::Events(double *vitesse, bool *changement_cellule, int *x, int *y
     return false;
 }
 
-// Vérifier si la fenêtre est ouverte
-bool Graphique::fenetreOuverte() const {
+/**
+ * @brief Vérifie si la fenêtre est ouverte ou non
+ *
+ * @return true si la fenêtre est actuellement ouverte, false si elle est fermé
+ */
+bool Graphique::FenetreOuverte() const {
     return jeu.isOpen(); // Vérifie si la fenêtre est toujours ouverte
 }
 

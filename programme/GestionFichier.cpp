@@ -11,11 +11,11 @@ GestionFichier::GestionFichier() : ite(0) {}
 
 
 // Constructeur Parametré
-GestionFichier::GestionFichier(std::string output) : cheminSauvegarde(output), ite(0) {}
+GestionFichier::GestionFichier(std::string output) : chemin_sauvegarde(output), ite(0) {}
 
 
 // Lire l'état initial des cellules dans le fichier
-std::vector<std::vector<int>>* GestionFichier::lireEtatInitial(std::string cheminInitialisation) {
+std::vector<std::vector<int>>* GestionFichier::LireEtatInitial(std::string cheminInitialisation) {
     std::ifstream fichier(cheminInitialisation);
     if (fichier.is_open()) {
         fichier >> x_grille >> y_grille;
@@ -37,10 +37,10 @@ std::vector<std::vector<int>>* GestionFichier::lireEtatInitial(std::string chemi
 }
 
 // Sauvegarder l'etat des cellules dans un fichier
-void GestionFichier::sauvegarderEtat(std::vector<std::vector<int>>* matrice_grille) {
-    if (!(cheminSauvegarde == std::string(""))) {
+void GestionFichier::SauvegarderEtat(std::vector<std::vector<int>>* matrice_grille) {
+    if (!(chemin_sauvegarde == std::string(""))) {
         ite++;
-        std::string nom_fichier = cheminSauvegarde + "/fichier_ite_" + std::to_string(ite);
+        std::string nom_fichier = chemin_sauvegarde + "/fichier_ite_" + std::to_string(ite);
 
         std::ofstream fichier(nom_fichier);
         if (fichier.is_open()) {

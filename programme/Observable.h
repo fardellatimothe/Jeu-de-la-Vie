@@ -12,8 +12,8 @@ protected:
     vector<Observer*> list_observers;
 
 public:
-    void ajouterObservateurs(Observer* observer);
-    virtual void notifierObservateur(int x, int y, int etat) = 0;
+    void AjtObservateurs(Observer* observer);
+    virtual void NotifObservateur(int x, int y, int etat) = 0;
 };
 
 #endif

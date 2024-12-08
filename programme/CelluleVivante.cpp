@@ -4,11 +4,11 @@ CelluleVivante::CelluleVivante(int x, int y, bool obstacle) : Cellule(x, y), obs
 CelluleVivante::CelluleVivante(int x, int y) : Cellule(x, y) {}
 
 
-bool CelluleVivante::calculerProchainEtat() {
+bool CelluleVivante::CalculerProchainEtat() {
     if (obstacle == true) return true;
-    return (nbVoisinesVivantes == 2 || nbVoisinesVivantes == 3);
+    return (nb_voisines_vivantes == 2 || nb_voisines_vivantes == 3);
 }
 
-int CelluleVivante::etat()const {
+int CelluleVivante::Etat()const {
     return 1;
 }

@@ -2,11 +2,11 @@
 
 CelluleVoisine::CelluleVoisine(int x, int y) : Cellule(x, y) {}
 
-bool CelluleVoisine::calculerProchainEtat() {
-    return (nbVoisinesVivantes == 3);
+bool CelluleVoisine::CalculerProchainEtat() {
+    return (nb_voisines_vivantes == 3);
 }
 
-int CelluleVoisine::etat()const {
+int CelluleVoisine::Etat()const {
     return 0;
 }
 

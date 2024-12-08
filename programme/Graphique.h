@@ -6,6 +6,8 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
+using namespace std;
+
 class Graphique : public Observer {
     private:
         int taille_cellule;
@@ -13,13 +15,13 @@ class Graphique : public Observer {
         double temp_vitesse;
         bool pause=false;
     public:
-        Graphique(std::vector<std::vector<int>> &matrice);
-        void initialiser(std::vector<std::vector<int>> &matrice);
-        void update(int x, int y, int etat) override;
+        Graphique(vector<vector<int>> &matrice);
+        void Initialisation(vector<vector<int>> &matrice);
+        void Update(int x, int y, int etat) override;
         bool Events(double *vitesse, bool *changement_cellule, int *x, int *y, int *etat);
-        bool fenetreOuverte() const; // Méthode adaptée pour vérifier l'état de la fenêtre
-        void afficherGrille(const std::vector<std::vector<int>> &matrice); // Nouvelle méthode
-        void update_grille();
+        bool FenetreOuverte() const; // Méthode adaptée pour vérifier l'état de la fenêtre
+        void AfficherGrille(const vector<vector<int>> &matrice); // Nouvelle méthode
+        void UpdateGrille();
         ~Graphique() override;
 };
 

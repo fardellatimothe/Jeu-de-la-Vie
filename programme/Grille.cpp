@@ -1,49 +1,45 @@
 #include "Grille.h"
 
-Grille::Grille(vector<vector<int>>& matrice, bool grilleTorique) {
-    this->grilleTorique = grilleTorique;
-    CelluleExiste.resize(matrice.size(), vector<Cellule*>(matrice[0].size(), nullptr));
+Grille::Grille(vector<vector<int>>& matrice, bool grille_torique) {
+    this->grille_torique = grille_torique;
+    existe_pile.resize(matrice.size(), vector<Cellule*>(matrice[0].size(), nullptr));
     for (size_t i = 0; i < matrice.size(); ++i) {
         for (size_t j = 0; j < matrice[0].size(); ++j) {
             if (matrice[i][j] == 1) {
                 Cellule* cellule = new CelluleVivante(i, j);
-                CelluleVivantePile.push(cellule);
-                CelluleExiste[i][j] = cellule;
-            } else if (matrice[i][j] == 2)
-            {
+                cell_vivante_pile.push(cellule);
+                existe_pile[i][j] = cellule;
+            } else if (matrice[i][j] == 2) {
                 Cellule* cellule = new CelluleVivante(i, j, true);
-                CelluleVivantePile.push(cellule);
-                CelluleExiste[i][j] = cellule;
-            } else if (matrice[i][j] == 3)
-            {
+                cell_vivante_pile.push(cellule);
+                existe_pile[i][j] = cellule;
+            } else if (matrice[i][j] == 3) {
                 Cellule* cellule = new CelluleVoisine(i, j);
-                CelluleExiste[i][j] = cellule;
-            }
-            
-            
+                existe_pile[i][j] = cellule;
+            }            
         }
     }
 }
 
-void Grille::calculerProchaineIteration() {
+void Grille::CalculerProchaineIteration() {
     stable = true;
     CalculVoisin();
     CalculSurvie();
 }
 
 void Grille::CalculVoisin() {
-    while (!CelluleVivantePile.empty()) {
-        int x = CelluleVivantePile.top()->getx();
-        int y = CelluleVivantePile.top()->gety();
+    while (!cell_vivante_pile.empty()) {
+        int x = cell_vivante_pile.top()->GetX();
+        int y = cell_vivante_pile.top()->GetY();
         
-        int hauteur = CelluleExiste.size(); // Nombre de lignes
-        int largeur = CelluleExiste[0].size(); // Nombre de colonnes
+        int hauteur = existe_pile.size(); // Nombre de lignes
+        int largeur = existe_pile[0].size(); // Nombre de colonnes
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
                 
                 int newX, newY
                 ;
-                if (grilleTorique){
+                if (grille_torique){
                     newX = (x + i + hauteur) % hauteur;
                     newY = (y + j + largeur) % largeur;
                 } else {
@@ -52,104 +48,104 @@ void Grille::CalculVoisin() {
                 }
 
                 if (newX >= 0 && newX < hauteur && newY >= 0 && newY < largeur && !(i == 0 && j == 0)) {
-                    if (CelluleExiste[newX][newY] == nullptr) {
+                    if (existe_pile[newX][newY] == nullptr) {
                         Cellule* cellule_voisine = new CelluleVoisine(newX, newY);
                         cellule_voisine->IncrementerVoisinesVivantes();
-                        CelluleTransition.push(cellule_voisine);
-                        CelluleExiste[newX][newY] = cellule_voisine;
+                        temp_pile.push(cellule_voisine);
+                        existe_pile[newX][newY] = cellule_voisine;
                     } else {
-                        CelluleExiste[newX][newY]->IncrementerVoisinesVivantes();
+                        existe_pile[newX][newY]->IncrementerVoisinesVivantes();
                     }
                     
                 }
             }
         }
-        CelluleTransition.push(CelluleVivantePile.top());
-        CelluleVivantePile.pop();
+        temp_pile.push(cell_vivante_pile.top());
+        cell_vivante_pile.pop();
     }
 }
 
 void Grille::CalculSurvie(){
-    while (!CelluleTransition.empty()){
-        int x = CelluleTransition.top()->getx();
-        int y = CelluleTransition.top()->gety();
+    while (!temp_pile.empty()){
+        int x = temp_pile.top()->GetX();
+        int y = temp_pile.top()->GetY();
         
-        if (CelluleTransition.top()->calculerProchainEtat()){
-            if (CelluleTransition.top()->etat() == 1)
+        if (temp_pile.top()->CalculerProchainEtat()){
+            if (temp_pile.top()->Etat() == 1)
             {
-                CelluleVivantePile.push(CelluleTransition.top());
-                CelluleVivantePile.top()->resetVoisin();
-                CelluleTransition.pop();
+                cell_vivante_pile.push(temp_pile.top());
+                cell_vivante_pile.top()->ResetVoisin();
+                temp_pile.pop();
                 
-            } else if (CelluleTransition.top()->etat() == 0)
+            } else if (temp_pile.top()->Etat() == 0)
             {
                 Cellule* cellule_vivante = new CelluleVivante(x, y);
-                CelluleVivantePile.push(cellule_vivante);
-                CelluleExiste[x][y] = cellule_vivante;
-                notifierObservateur(x, y, 1);
+                cell_vivante_pile.push(cellule_vivante);
+                existe_pile[x][y] = cellule_vivante;
+                NotifObservateur(x, y, 1);
 
-                delete CelluleTransition.top();
-                CelluleTransition.pop();
+                delete temp_pile.top();
+                temp_pile.pop();
             }
 
         } else {
-            if (CelluleTransition.top()->etat() == 1)
+            if (temp_pile.top()->Etat() == 1)
             {
-                CelluleExiste[x][y] = nullptr;
-                notifierObservateur(x, y, 0);
-                delete CelluleTransition.top();
-                CelluleTransition.pop();
+                existe_pile[x][y] = nullptr;
+                NotifObservateur(x, y, 0);
+                delete temp_pile.top();
+                temp_pile.pop();
                 
-            } else if (CelluleTransition.top()->etat() == 0)
-            {   CelluleExiste[x][y] = nullptr;
-                delete CelluleTransition.top();
-                CelluleTransition.pop();
+            } else if (temp_pile.top()->Etat() == 0)
+            {   existe_pile[x][y] = nullptr;
+                delete temp_pile.top();
+                temp_pile.pop();
             }
         }
     }
 }
 
 int Grille::TaillePile() {
-    return CelluleVivantePile.size();
+    return cell_vivante_pile.size();
 }
 
-bool Grille::estStable() const {
+bool Grille::EstStable() const {
     return stable;
 }
 
-int Grille::nbVoisin(int x, int y){
-    if (CelluleExiste[x][y] == nullptr) return 0;
-    return CelluleExiste[x][y]->getVoisin();
+int Grille::nb_voisin(int x, int y){
+    if (existe_pile[x][y] == nullptr) return 0;
+    return existe_pile[x][y]->GetVoisin();
 }
 
-void Grille::notifierObservateur(int x, int y, int etat){
+void Grille::NotifObservateur(int x, int y, int Etat){
     stable = false;
     for (auto observer : list_observers) {
-        observer->update(x, y, etat);
+        observer->Update(x, y, Etat);
     }
 }
 
-void Grille::ModifCellule(int x, int y, int etat){
-    Cellule *cellule = CelluleExiste[x][y];
-    if (etat == 1 && cellule == nullptr){
+void Grille::ModifCellule(int x, int y, int Etat){
+    Cellule *cellule = existe_pile[x][y];
+    if (Etat == 1 && cellule == nullptr){
         Cellule* nouvelle_cellule = new CelluleVivante(x, y);
-        CelluleVivantePile.push(nouvelle_cellule);
-        CelluleExiste[x][y] = nouvelle_cellule;
+        cell_vivante_pile.push(nouvelle_cellule);
+        existe_pile[x][y] = nouvelle_cellule;
 
-    } else if (etat == 0 && cellule != nullptr)
+    } else if (Etat == 0 && cellule != nullptr)
     {
         std::stack<Cellule*> temp_pile;
-        while (!CelluleVivantePile.empty()) {
-            if (CelluleVivantePile.top() == cellule) {
-                delete CelluleVivantePile.top();
-                CelluleVivantePile.pop();
+        while (!cell_vivante_pile.empty()) {
+            if (cell_vivante_pile.top() == cellule) {
+                delete cell_vivante_pile.top();
+                cell_vivante_pile.pop();
             } else {
-                temp_pile.push(CelluleVivantePile.top());
-                CelluleVivantePile.pop();
+                temp_pile.push(cell_vivante_pile.top());
+                cell_vivante_pile.pop();
             }
         }
         while (!temp_pile.empty()){
-            CelluleVivantePile.push(temp_pile.top());
+            cell_vivante_pile.push(temp_pile.top());
             temp_pile.pop();
         }
     }
