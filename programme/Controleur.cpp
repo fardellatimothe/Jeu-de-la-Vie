@@ -22,7 +22,7 @@ bool Controleur::test(string fichier_base, string fichier_attendu, int iteration
     vector<std::vector<int>>* test = gestionFichier.lireEtatInitial(fichier_base);
 
     Console console(test);
-    Grille grille(*test);
+    Grille grille(*test, false);
 
     grille.ajouterObservateurs(&console);
     // console.afficherMatrice();
@@ -68,6 +68,7 @@ void Controleur::start(string chemin_initial, double &vitesse, bool grilleToriqu
         {
             graphique.handleEvents();
             graphique.detectionVitesse(&vitesse);
+            if (!graphique.fenetreOuverte()) return;
         }
     }
     auto end = chrono::high_resolution_clock::now();
@@ -75,14 +76,14 @@ void Controleur::start(string chemin_initial, double &vitesse, bool grilleToriqu
     cout << "Itération : " << iteration << " en " << duration.count() << " secondes" << endl;
 }
 
-void Controleur::start(string chemin_initial, string chemin_sauvegarde, int iteration_max, double &vitesse) {
+void Controleur::start(string chemin_initial, string chemin_sauvegarde, int iteration_max, double &vitesse, bool grilleTorique) {
     auto test1 = chrono::high_resolution_clock::now();
     GestionFichier gestionFichier(chemin_sauvegarde);
     vector<std::vector<int>>* test = gestionFichier.lireEtatInitial(chemin_initial);
 
     Console console(test);
     Graphique graphique = Graphique(*test);
-    Grille grille(*test);
+    Grille grille(*test, grilleTorique);
 
     grille.ajouterObservateurs(&graphique);
     grille.ajouterObservateurs(&console);
@@ -99,6 +100,7 @@ void Controleur::start(string chemin_initial, string chemin_sauvegarde, int iter
         while ((chrono::high_resolution_clock::now() - start) < chrono::duration<double>(vitesse)) {
             graphique.handleEvents();
             graphique.detectionVitesse(&vitesse);
+            if (!graphique.fenetreOuverte()) return;
         }
     }
     auto end = chrono::high_resolution_clock::now();

@@ -113,9 +113,8 @@ void Graphique::handleEvents() {
 
 void Graphique::detectionVitesse(double *vitesse) {
     sf::Event eventv;
-
     static auto lastUpdate = std::chrono::steady_clock::now();
-    const auto interval = std::chrono::milliseconds(100);
+    const auto interval = std::chrono::milliseconds(150);
 
     while (jeu.pollEvent(eventv)) {
         if (eventv.type == sf::Event::KeyPressed) {
@@ -136,8 +135,16 @@ void Graphique::detectionVitesse(double *vitesse) {
             std::cout << "Vitesse actuelle : " << *vitesse << std::endl;
             lastUpdate = now;
         } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-            *vitesse = 999999;
-            lastUpdate = now;
+            if (pause == true){
+                *vitesse = temp_vitesse;
+                pause = false;
+                lastUpdate = now;
+            } else {
+                temp_vitesse = *vitesse;
+                *vitesse = 999999;
+                pause = true;
+                lastUpdate = now;
+            }
         }
     }
 }
