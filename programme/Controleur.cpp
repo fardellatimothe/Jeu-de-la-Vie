@@ -1,11 +1,11 @@
 #include "Controleur.h"
 
-void Controleur::start(string chemin_initial, string chemin_sauvegarde, int iteration_max){    
+void Controleur::start(string chemin_initial, string chemin_sauvegarde, int iteration_max, bool grilleTorique){    
     GestionFichier gestionFichier(chemin_sauvegarde);
     vector<std::vector<int>>* test = gestionFichier.lireEtatInitial(chemin_initial);
 
     Console console(test);
-    Grille grille(*test);
+    Grille grille(*test, grilleTorique);
 
     grille.ajouterObservateurs(&console);
     // console.afficherMatrice();
@@ -45,13 +45,13 @@ bool Controleur::test(string fichier_base, string fichier_attendu, int iteration
     cout << "Le test est validé !" << endl;
     return 1;
 }
-void Controleur::start(string chemin_initial, double &vitesse){
+void Controleur::start(string chemin_initial, double &vitesse, bool grilleTorique){
     auto test1 = chrono::high_resolution_clock::now();
     GestionFichier gestionFichier("");
     vector<std::vector<int>>* test = gestionFichier.lireEtatInitial(chemin_initial);
 
     Graphique graphique = Graphique(*test);
-    Grille grille(*test);
+    Grille grille(*test, grilleTorique);
 
     grille.ajouterObservateurs(&graphique);
     

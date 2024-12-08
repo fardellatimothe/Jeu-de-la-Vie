@@ -15,9 +15,10 @@ private:
     vector<vector<Cellule*>> CelluleExiste;
     int nbVoisin(int x, int y);
     bool stable=false;
+    bool grilleTorique;
 
 public:
-    Grille(vector<vector<int>>& matrice);
+    Grille(vector<vector<int>>& matrice, bool grilleTorique);
     void calculerProchaineIteration();
     void CalculVoisin();
     void CalculSurvie();
