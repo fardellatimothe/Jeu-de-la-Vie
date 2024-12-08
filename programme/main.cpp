@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
 
     // #################################################### Mode console ############################################################
     if (mode == "console") {
-        if (argc == 5) {
+        if (argc < 6) {
             cerr << "Paramètres insuffisants pour le mode Console.\n";
             return 1;
         }
@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
 
     // #################################################### Mode graphique ############################################################
     } else if (mode == "graphique") {
-        if (argc == 4) {
+        if (argc < 5) {
             cerr << "Paramètres insuffisants pour le mode Graphique.\n";
             return 1;
         }
@@ -68,7 +68,7 @@ int main(int argc, char* argv[]) {
 
     // #################################################### Mode console + graphique ############################################################
     } else if (mode == "gc") {
-        if (argc == 6) {
+        if (argc < 7) {
             cerr << "Paramètres insuffisants pour lancer les deux modes.\n";
             return 1;
         }
@@ -93,7 +93,7 @@ int main(int argc, char* argv[]) {
 
     // #################################################### Mode Test Unitaire personnalisé ############################################################
     } else if (mode == "test") {
-        if (argc == 3) {
+        if (argc < 4) {
             cerr << "Paramètre insuffisants pour réaliser un test unitaire";
             return 1;
         }
