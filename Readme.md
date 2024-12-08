@@ -31,7 +31,7 @@ Prérequis
 2. Allez dans le répertoire du projet :
 
     ```bash
-    cd jeu-de-la-vie
+    cd jeu-de-la-vie/programme
     ```
 
 3. Compilez le projet :
