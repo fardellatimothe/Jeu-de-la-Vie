@@ -1,5 +1,15 @@
 #include "Grille.h"
 
+/**
+ * @brief Constructeur de la classe Grille.
+ *
+ * Initialise la grille en créant les cellules à partir d'une matrice donnée. 
+ * Les cellules vivantes ou voisines sont ajoutées à leurs structures respectives.
+ *
+ * @param matrice Référence vers une matrice représentant l'état initial de la grille 
+ * (0 = vide, 1 = cellule vivante, 2 = cellule vivante persistante, 3 = cellule voisine).
+ * @param grille_torique Indique si la grille est torique (true) ou non (false).
+ */
 Grille::Grille(vector<vector<int>>& matrice, bool grille_torique) {
     this->grille_torique = grille_torique;
     existe_pile.resize(matrice.size(), vector<Cellule*>(matrice[0].size(), nullptr));
@@ -21,12 +31,26 @@ Grille::Grille(vector<vector<int>>& matrice, bool grille_torique) {
     }
 }
 
+
+/**
+ * @brief Calcule l'état de la grille pour l'itération suivante.
+ *
+ * Cette méthode calcule les voisins de toutes les cellules vivantes et détermine 
+ * leur état pour l'itération suivante, en appliquant les règles du jeu de la vie.
+ */
 void Grille::CalculerProchaineIteration() {
     stable = true;
     CalculVoisin();
     CalculSurvie();
 }
 
+/**
+ * @brief Calcule les cellules voisines des cellules vivantes.
+ *
+ * Parcourt les cellules vivantes de la pile et met à jour les compteurs de voisins 
+ * pour toutes les cellules voisines. Ajoute les nouvelles cellules voisines détectées 
+ * à une pile temporaire.
+ */
 void Grille::CalculVoisin() {
     while (!cell_vivante_pile.empty()) {
         int x = cell_vivante_pile.top()->GetX();
@@ -65,6 +89,13 @@ void Grille::CalculVoisin() {
     }
 }
 
+
+/**
+ * @brief Met à jour l'état des cellules en fonction des règles du jeu.
+ *
+ * Détermine les cellules qui survivent, naissent ou meurent et met à jour la grille en conséquence.
+ * Notifie les observateurs pour tout changement d'état des cellules.
+ */
 void Grille::CalculSurvie(){
     while (!temp_pile.empty()){
         int x = temp_pile.top()->GetX();
@@ -105,19 +136,52 @@ void Grille::CalculSurvie(){
     }
 }
 
+
+/**
+ * @brief Retourne la taille de la pile des cellules vivantes.
+ *
+ * @return Le nombre de cellules vivantes actuellement dans la grille.
+ */
 int Grille::TaillePile() {
     return cell_vivante_pile.size();
 }
 
+
+/**
+ * @brief Vérifie si la grille est stable.
+ *
+ * Une grille est stable si aucune cellule ne change d'état entre deux itérations successives.
+ *
+ * @return True si la grille est stable, False sinon.
+ */
 bool Grille::EstStable() const {
     return stable;
 }
 
+
+/**
+ * @brief Compte le nombre de voisins vivants pour une cellule donnée.
+ *
+ * @param x Coordonnée en ligne de la cellule.
+ * @param y Coordonnée en colonne de la cellule.
+ * @return Le nombre de voisins vivants pour la cellule à la position donnée.
+ */
 int Grille::nb_voisin(int x, int y){
     if (existe_pile[x][y] == nullptr) return 0;
     return existe_pile[x][y]->GetVoisin();
 }
 
+
+/**
+ * @brief Notifie les observateurs d'un changement d'état d'une cellule.
+ *
+ * Met à jour l'état de stabilité de la grille et appelle la méthode `Update` 
+ * des observateurs enregistrés.
+ *
+ * @param x Coordonnée en ligne de la cellule modifiée.
+ * @param y Coordonnée en colonne de la cellule modifiée.
+ * @param Etat Nouvel état de la cellule (0 = morte, 1 = vivante).
+ */
 void Grille::NotifObservateur(int x, int y, int Etat){
     stable = false;
     for (auto observer : list_observers) {
@@ -125,6 +189,18 @@ void Grille::NotifObservateur(int x, int y, int Etat){
     }
 }
 
+
+/**
+ * @brief Modifie l'état d'une cellule spécifique dans la grille.
+ *
+ * Change l'état d'une cellule aux coordonnées données et met à jour la grille en conséquence.
+ * Si la cellule devient vivante, elle est ajoutée à la pile des cellules vivantes.
+ * Si elle devient morte, elle est retirée de la pile.
+ *
+ * @param x Coordonnée en ligne de la cellule.
+ * @param y Coordonnée en colonne de la cellule.
+ * @param Etat Nouvel état de la cellule (0 = morte, 1 = vivante).
+ */
 void Grille::ModifCellule(int x, int y, int Etat){
     Cellule *cellule = existe_pile[x][y];
     if (Etat == 1 && cellule == nullptr){

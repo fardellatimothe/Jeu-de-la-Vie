@@ -5,7 +5,14 @@
 #include <chrono>
 
 
-
+/**
+ * @brief Constructeur de la classe Graphique.
+ *
+ * Initialise la fenêtre graphique du jeu de la vie en fonction de la taille de la matrice,
+ * en ajustant la taille des cellules et la taille de la fenêtre pour l'affichage.
+ * 
+ * @param matrice Référence vers la matrice de cellules représentant l'état initial.
+ */
 Graphique::Graphique(vector<vector<int>> &matrice) {
     int lignes = matrice.size();
     int colonnes = matrice[0].size();
@@ -25,8 +32,16 @@ Graphique::Graphique(vector<vector<int>> &matrice) {
 }
 
 
-
-// Initialiser la grille
+/**
+ * @brief Initialise la grille graphique à partir de la matrice d'état.
+ *
+ * Cette méthode dessine les cellules de la matrice dans la fenêtre en fonction de leur état :
+ * - `1` : cellule vivante (blanche),
+ * - `2` : cellule obstacle (verte),
+ * - `3` : cellule voisine (rouge).
+ *
+ * @param matrice Référence vers la matrice d'état des cellules à afficher.
+ */
 void Graphique::Initialisation(vector<vector<int>> &matrice) {
 
     sf::RectangleShape cellule(sf::Vector2f(taille_cellule - 1.0f, taille_cellule - 1.0f));
@@ -50,7 +65,15 @@ void Graphique::Initialisation(vector<vector<int>> &matrice) {
     jeu.display();
 }
 
-// Afficher la grille à partir de la matrice
+
+/**
+ * @brief Affiche la grille à partir de la matrice donnée.
+ *
+ * Cette méthode redessine la grille complète en nettoyant la fenêtre avant de redessiner chaque cellule 
+ * selon son état (blanche pour vivante, verte pour obstacle, rouge pour voisine).
+ *
+ * @param matrice Référence vers la matrice d'état des cellules à afficher.
+ */
 void Graphique::AfficherGrille(const vector<vector<int>> &matrice) {
 
     int lignes = matrice.size();
@@ -80,7 +103,17 @@ void Graphique::AfficherGrille(const vector<vector<int>> &matrice) {
     jeu.display();
 }
 
-// Mettre à jour une cellule dans la grille
+
+/**
+ * @brief Met à jour l'état d'une cellule spécifique dans la grille graphique.
+ *
+ * Cette méthode met à jour l'affichage de la cellule dans la fenêtre en fonction de son état 
+ * (blanche pour vivante, noire pour morte).
+ *
+ * @param x Position de la cellule sur l'axe des lignes.
+ * @param y Position de la cellule sur l'axe des colonnes.
+ * @param etat État de la cellule (1 pour vivante, 0 pour morte).
+ */
 void Graphique::Update(int x, int y, int etat) {
     sf::RectangleShape cellule(sf::Vector2f(taille_cellule - 1.0f, taille_cellule - 1.0f));
     cellule.setPosition(y * taille_cellule, x * taille_cellule);
@@ -89,11 +122,31 @@ void Graphique::Update(int x, int y, int etat) {
     jeu.draw(cellule);
 }
 
+
+/**
+ * @brief Affiche la grille mise à jour après un changement.
+ *
+ * Cette méthode effectue le rendu final de la fenêtre graphique après une mise à jour de la grille.
+ */
 void Graphique::UpdateGrille(){
     jeu.display();
 }
 
 
+/**
+ * @brief Gère les événements utilisateur tels que les touches et les clics de souris.
+ *
+ * Cette méthode capte les événements clavier et souris pour ajuster la vitesse d'exécution, 
+ * mettre en pause, ou modifier l'état des cellules en fonction des clics gauche et droit.
+ * Elle retourne `true` si une cellule a été modifiée.
+ *
+ * @param vitesse Pointeur vers la vitesse actuelle du jeu.
+ * @param changement_cellule Pointeur vers une variable qui indique si l'état d'une cellule a changé.
+ * @param x Pointeur vers la position X de la cellule modifiée.
+ * @param y Pointeur vers la position Y de la cellule modifiée.
+ * @param etat Pointeur vers l'état de la cellule modifiée.
+ * @return `true` si une cellule a été modifiée, sinon `false`.
+ */
 bool Graphique::Events(double *vitesse, bool *changement_cellule, int *x, int *y, int *etat) {
     sf::Event event;
     static auto lastUpdate = chrono::steady_clock::now();

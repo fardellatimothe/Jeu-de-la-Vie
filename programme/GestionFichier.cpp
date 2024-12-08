@@ -6,15 +6,37 @@
 #include <fstream>
 #include <filesystem>
 
-// Constructeur
+
+/**
+ * @brief Constructeur par défaut de la classe GestionFichier.
+ *
+ * Initialise une instance de GestionFichier avec un compteur d'itérations 
+ * (ite) à 0 et sans chemin de sauvegarde défini.
+ */
 GestionFichier::GestionFichier() : ite(0) {}
 
 
-// Constructeur Parametré
+/**
+ * @brief Constructeur paramétré de la classe GestionFichier.
+ *
+ * Initialise une instance de GestionFichier avec un chemin de sauvegarde spécifié 
+ * et un compteur d'itérations (ite) à 0.
+ *
+ * @param output Chemin où les fichiers de sauvegarde seront enregistrés.
+ */
 GestionFichier::GestionFichier(std::string output) : chemin_sauvegarde(output), ite(0) {}
 
 
-// Lire l'état initial des cellules dans le fichier
+/**
+ * @brief Lit l'état initial des cellules à partir d'un fichier.
+ *
+ * Cette méthode charge une matrice d'état initial à partir du fichier spécifié.
+ * Si le fichier ne peut pas être ouvert, une matrice vide est retournée, et une 
+ * erreur est affichée.
+ *
+ * @param cheminInitialisation Chemin vers le fichier contenant l'état initial.
+ * @return Pointeur vers une matrice d'entiers représentant l'état initial des cellules.
+ */
 std::vector<std::vector<int>>* GestionFichier::LireEtatInitial(std::string cheminInitialisation) {
     std::ifstream fichier(cheminInitialisation);
     if (fichier.is_open()) {
@@ -36,7 +58,15 @@ std::vector<std::vector<int>>* GestionFichier::LireEtatInitial(std::string chemi
     }
 }
 
-// Sauvegarder l'etat des cellules dans un fichier
+
+/**
+ * @brief Sauvegarde l'état actuel des cellules dans un fichier.
+ *
+ * Enregistre la matrice actuelle dans un fichier au chemin spécifié. Si aucun chemin 
+ * n'est défini, un dossier par défaut nommé "Sauvegarde" est créé pour y stocker les fichiers.
+ *
+ * @param matrice_grille Pointeur vers une matrice contenant l'état actuel des cellules.
+ */
 void GestionFichier::SauvegarderEtat(std::vector<std::vector<int>>* matrice_grille) {
     if (!(chemin_sauvegarde == std::string(""))) {
         ite++;
@@ -82,5 +112,9 @@ void GestionFichier::SauvegarderEtat(std::vector<std::vector<int>>* matrice_gril
 }
 
 
-// Destructeur
+/**
+ * @brief Destructeur de la classe GestionFichier.
+ *
+ * Libère les ressources associées à l'instance de GestionFichier si nécessaire.
+ */
 GestionFichier::~GestionFichier() {}
