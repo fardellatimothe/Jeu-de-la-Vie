@@ -96,12 +96,10 @@ void Controleur::start(string chemin_initial, string chemin_sauvegarde, int iter
         graphique.update_grille();
 
         auto start = chrono::high_resolution_clock::now();
-        while ((chrono::high_resolution_clock::now() - start) < chrono::duration<double>(vitesse))
-        {
+        while ((chrono::high_resolution_clock::now() - start) < chrono::duration<double>(vitesse)) {
             graphique.handleEvents();
             graphique.detectionVitesse(&vitesse);
         }
-        
     }
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> duration = end - test1;

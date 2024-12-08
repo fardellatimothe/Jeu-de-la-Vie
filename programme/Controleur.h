@@ -15,6 +15,7 @@
 using namespace std;
 
 class Controleur {
+private:
     int iteration=0;
 public:
     Controleur(){}
