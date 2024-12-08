@@ -21,7 +21,7 @@ class Graphique : public Observer {
         bool fenetreOuverte() const; // Méthode adaptée pour vérifier l'état de la fenêtre
 
         void afficherGrille(const std::vector<std::vector<int>> &matrice); // Nouvelle méthode
-
+        void detectionVitesse(double *vitesse);
         void update_grille();
         ~Graphique() override;
 };
