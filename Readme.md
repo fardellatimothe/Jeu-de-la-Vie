@@ -370,8 +370,6 @@ Le mode graphique utilise la bibliothèque **SFML** pour afficher en temps réel
 
 Le mode graphique est ralenti par le coût de rendu des cellules à chaque itération, bien que ce coût reste linéaire par rapport à la taille de la grille \(O(n \times m)\). Cependant, pour des grilles très grandes ou des animations rapides, le temps de rendu peut devenir un goulot d'étranglement. Mais comme nous modifions que ce qu'il y a besoin de modifier, nous limitons le coût en temps.
 
-## Erreurs : 
-
 
 
 
