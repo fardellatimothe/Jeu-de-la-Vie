@@ -1,28 +1,38 @@
-# Jeu de la vie
+# 🎮 Jeu de la vie
 
-## Auteur
-- Thivillier Théo
-- Fardella Timothé
+## 👨‍💻 Auteur
+- **Thivillier Théo**
+- **Fardella Timothé**
 
-## Description
+---
+
+## 📖 Description
 
 Le Jeu de la Vie est un automate cellulaire imaginé par John Horton Conway, un mathématicien britannique, pour décrire l'évolution d'une population de cellules dans le temps. 
 
-Les cellules sont représentés par des cases placées sur une grille à deux dimensions. Elles peuvent prendre deux états : vivante ou morte.
+Les cellules sont représentés par des cases placées sur une grille à deux dimensions. Elles peuvent prendre deux états : **vivante** ou **morte**.
+
+### 🌟 Règles :
 
 A chaque itération , l'actualisation de ces cellules est régis par deux règles : 
 - Si une cellule morte à précisement trois cellules voisines vivantes, elle se transforme en vivante.
 - Si une cellule vivante possède deux ou trois cellules voisines vivantes, elle reste vivante.
 
-Notre programme reprend les concepts de la programmation orienté objet (POO) en simulant le jeu de la vie à travers le language C++.
+Notre programme reprend les concepts de la **programmation orienté objet (POO)** en simulant le jeu de la vie à travers le language **C++**.
 
-## Installation
+---
 
-Prérequis
+## ⚙️ Installation
+
+### 📋 Prérequis
 - C++17 ou supérieur
 - Compilation avec clang++
 - Système compatible avec WSL ou Linux
 - Bibliothèque : SFML
+
+---
+
+### 🛠️ Étapes d'installation
 
 1. Clonez ce repository :
    ```bash
@@ -39,166 +49,122 @@ Prérequis
     make
     ```
     
-4. Commandes pour lancer le programme : 
+4. Lancez le programme : 
 
 - *nom commande* : 
 
     ```bash
-    ./jeu_de_la_vie ...
+    ./jeu_de_la_vie [mode] [options]
     ```
+
+---
     
-5. Choisir le mode : 
+## 🚀 Choisir le mode : 
 
-L'utilisateur peut choisir s'il souhaite executer le jeu en mode console, graphique, les deux ou en mode test.
- 
-- *Mode console (fichiers):*
-
-    ```bash
-    ./jeu_de_la_vie console [options]
-    ```
-    
-- *Mode graphique (avec interface) :*
-
-    ```bash
-    ./jeu_de_la_vie graphique [options]
-    ```
-    
-- *Les deux modes en même temps :*
-
-    ```bash
-    ./jeu_de_la_vie gc [options]
-    ```
-
-- *Le mode Test (test unitaire) : 
-
-    ```bash
-    ./jeu_de_la_vie test [options]
-    ```
-
-
-## Fonctionnalité
-
-Notre jeu de la vie offre plusieurs modes d'éxecutions avec différentes fonctionnalités qui permettent à l'utilisateur d'interagir avec le programme et de définir certains comportements des cellules. 
-
-Il intègre dans tous les modes un test unitaire. Si il n'est pas réussis, le programme ne se lance pas.
+### 🎮 Modes d'exécution :
 
 **Le programme sera plus ou moins rapide selon votre matériel.**
 
-Voici donc les modes disponibles et leurs options (toutes obligatoires et dans l'ordre) :
+L'utilisateur peut choisir parmi 4 modes :
 
-- ++Mode Console++ : execute le jeu dans le terminal et sauvegarde les itérations dans un dossier de sortie. Voici les différentes options : 
-    1. Le chemin relatif du fichier contenant l'état initial des cellules
-    
-        ```bash
-        ./jeu_de_la_vie console fichier_base.txt
-        ```
-    
-    2. Le chemin relatif du dossier qui contiendra l'état des cellules aux différentes itérations (Création d'un dossier dédier à la sauvegarde obligatoire).
-    
-        ```bash
-        ./jeu_de_la_vie console fichier_base.txt dossier_sauvegarde 
-        ```
-    
-    3. Le nombre maximal d'itération que le programme devra sauvegarder
-    
-        ```bash
-        ./jeu_de_la_vie console fichier_base.txt dossier_sauvegarde 5
-        ```
-    
-    4. Si la grille doit être torique ou non : 
-    
-        - Si oui :
-        
-            ```bash
-            ./jeu_de_la_vie console fichier_base.txt dossier_sauvegarde 5 true
-            ```
-        
-        - Si non :
-        
-            ```bash
-            ./jeu_de_la_vie console fichier_base.txt dossier_sauvegarde 5 false
-            ```
-        
-- ++Mode Graphique++ : exécute le jeu avec une interface graphique pour visualiser en direct les états des cellules et interagir avec elles. Voici les différentes options : 
-    1. Le chemin relatif du fichier contenant l'état initial des cellules
-        ```bash
-        ./jeu_de_la_vie graphique fichier_base.txt
-        ```
-    
-    2. La vitesse en secondes des itérations. 
-        ```bash
-        ./jeu_de_la_vie graphique fichier_base.txt 1 
-        ```
-    
-    3. Si la grille doit être torique ou non : 
-        - Si oui :
-            ```bash
-            ./jeu_de_la_vie graphique fichier_base.txt dossier_sauvegarde 5 true
-            ```
-        
-        - Si non :
-            ```bash
-            ./jeu_de_la_vie graphique fichier_base.txt dossier_sauvegarde 5 false
-            ```
-        
-- ++Mode GC++ (Graphique & Console) : exécute le jeu dans le terminal et avec une interface graphique pour sauvegarder les itérations et visualiser l'évolution des cellules. Voici les différentes options : 
-    1. Le chemin relatif du fichier contenant l'état initial des cellules
-        ```bash
-        ./jeu_de_la_vie gc fichier_base.txt
-        ```
-    
-    2. Le chemin relatif du dossier qui contiendra l'état des cellules aux différentes itérations (Création d'un dossier dédier à la sauvegarde obligatoire)
-        ```bash
-        ./jeu_de_la_vie gc fichier_base.txt dossier_sauvegarde 
-        ```
-    
-    3. Le nombre maximal d'itération que le programme devra sauvegarder et afficher
-        ```bash
-        ./jeu_de_la_vie gc fichier_base.txt dossier_sauvegarde 5
-        ```
-    
-    4. La vitesse en secondes des itérations et de la sauvegarde
-        ```bash
-        ./jeu_de_la_vie graphique fichier_base.txt 1 
-        ```
-    
-    5. Si la grille doit être torique ou non : 
-        - Si oui :
-            ```bash
-            ./jeu_de_la_vie console fichier_base.txt dossier_sauvegarde 5 true
-            ```
-        
-        - Si non :
-            ```bash
-            ./jeu_de_la_vie console fichier_base.txt dossier_sauvegarde 5 false
-            ```
+1. Mode Console
+2. Mode Graphique
+3. Mode GC (Graphique & Console)
+4. Mode Test Unitaire
 
-- ++Mode Test Unitaire++ : verifie si le programme est fonctionnel. Voici les différentes options : 
-    1. Le chemin relatif du fichier contenant l'état initial des cellules
-        ```bash
-        ./jeu_de_la_vie test fichier_base.txt
-        ```
-    
-    2. Le chemin relatif du fichier contenant l'état des cellules à une itérations données
-        ```bash
-        ./jeu_de_la_vie test fichier_base.txt fichier_attendu.txt 
-        ```
-    
-    3. L'itération qui va subir le test unitaire
-        ```bash
-        ./jeu_de_la_vie test fichier_base.txt fichier_attendu.txt 10
-        ```
+Le jeu intègre dans tous les modes un test unitaire. Si il n'est pas réussis, le programme ne se lance pas.
 
+---
+
+### ⌨️ Mode Console
+
+Exécute le jeu dans le terminal et sauvegarde les itérations dans un dossier de sortie.
+
+**Options obligatoires :**
+
+1. Chemin du fichier d'entrée (ex. `fichier_input.txt`)
+2. Chemin du dossier de sauvegarde (ex. `dossier_sauvegarde`)
+3. Nombre d'itérations maximum (ex. `5`)
+4. Si la grille est torique ou non (`true` ou `false`)
+
+**Exemple de commande :**
+
+```bash
+./jeu_de_la_vie console fichier_input.txt dossier_sauvegarde 5 true
+```
+
+---
+
+### 🖥️ Mode Graphique
+
+Affiche le jeu dans une **interface graphique** interactive.
+
+**Options obligatoires :**
+
+1. Chemin du fichier d'entrée (ex. `fichier_input.txt`)
+2. Vitesse des itérations (ex. `1`)
+3. Si la grille est torique ou non (`true` ou `false`)
+
+**Exemple de commande :**
+
+```bash
+./jeu_de_la_vie graphique fichier_input.txt 1 true
+```
+
+---
+
+### 🔄 Mode GC (Graphique & Console)
+
+Combine les fonctionnalités des modes console et graphique.
+
+**Options obligatoires :**
+
+1. Chemin du fichier d'entrée (ex. `fichier_input.txt`)
+2. Chemin du dossier de sauvegarde (ex. `dossier_sauvegarde`)
+3. Nombre d'itérations maximum (ex. `5`)
+4. Vitesse des itérations (ex. `1`)
+5. Si la grille est torique ou non (`true` ou `false`)
+
+**Exemple de commande :**
+
+```bash
+./jeu_de_la_vie gc fichier_input.txt dossier_sauvegarde 5 1 true
+```
+
+--- 
+
+### 🧪 Mode Test Unitaire
+
+Teste si le programme est fonctionnel en comparant une grille initiale à une grille attendue après un certain nombre d'itérations.
+
+**Options obligatoires :**
+
+1. Chemin du fichier d'entrée (ex. `fichier_base.txt`)
+2. Chemin du fichier attendu (ex. `fichier_attendu.txt`)
+3. Numéro d'itération à tester (ex. `10`)
+
+**Exemple de commande :**
+
+```bash
+./jeu_de_la_vie test fichier_base.txt fichier_attendu.txt 10
+```
+
+--- 
+
+
+### 🎮 Commandes clavier (Mode Graphique)
 
 Lorsque que vous exécutez le jeu en mode graphique, vous pouvez intéragir avec l'interface graphique grâce à votre clavier : 
 
-- Echap : En appuyant sur cette touche, l'interface se fermera et le programme s'arrêtera.
+- ❌ **Échap** : En appuyant sur cette touche, l'interface se fermera et le programme s'arrêtera.
 
-- Espace : En appuyant sur cette touche, le jeu se mettra en pause. Pour que le jeu reprenne, il faudra réappuyer votre barre d'espace.
+- ⏸️ **Espace** : En appuyant sur cette touche, le jeu se mettra en pause. Pour que le jeu reprenne, il faudra réappuyer votre barre d'espace.
 
-- Flèche de Droite : En appuyant sur cette touche, la vitesse d'éxecution du jeu augmentera.
+- ➡️ **Flèche de Droite** : En appuyant sur cette touche, la vitesse d'éxecution du jeu augmentera.
 
-- Flèche de Gauche : En appuyant sur cette touche, la vitesse d'éxecution du jeu diminuera.
+- ⬅️ **Flèche de Gauche** : En appuyant sur cette touche, la vitesse d'éxecution du jeu diminuera.
+
+---
 
 ## Explication fonctionnement du programme
 
