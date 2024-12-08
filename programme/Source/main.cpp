@@ -99,8 +99,8 @@ int main(int argc, char* argv[]) {
         }
         string fichier_base = argv[2];
         string fichier_attendu = argv[3];
-        int iteration_test = stod(argv[4]);
-        string str_grille_torique = argv[6];
+        int iteration_test = stoi(argv[4]);
+        string str_grille_torique = argv[5];
         bool grille_torique;
         if (str_grille_torique == "true") {
             grille_torique = true;
