@@ -32,10 +32,12 @@ int main(int argc, char* argv[]) {
         bool grille_torique;
         if (str_grille_torique == "true") {
             grille_torique = true;
-        } else {
+        } else if (str_grille_torique == "false"){
             grille_torique = false;
+        } else {
+            cerr << "Erreur mode grille torique: Utilisez 'true' ou 'false' pour le mode grille torique.\n";
+            return 1;
         }
-
         cout << "Test : " << grille_torique << endl; // Active l'affichage "true"/"false"
         if(!jeu_de_la_vie.test("Test/test_unitaire1.txt", "Test/test_unitaire2.txt", 5)) return 0; // test unitaire
 
