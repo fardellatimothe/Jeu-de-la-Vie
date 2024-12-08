@@ -153,13 +153,13 @@ void Controleur::start(string chemin_initial, string chemin_sauvegarde, int iter
  * @param iteration_test Nombre d'itérations à effectuer sur la grille.
  * @return True si l'état obtenu correspond à l'état attendu, False sinon.
  */
-bool Controleur::test(string fichier_base, string fichier_attendu, int iteration_test) {
+bool Controleur::test(string fichier_base, string fichier_attendu, int iteration_test, bool grille_torique) {
 
     GestionFichier gestionFichier = GestionFichier();
     vector<std::vector<int>>* test = gestionFichier.LireEtatInitial(fichier_base);
 
     Console console(test);
-    Grille grille(*test, false);
+    Grille grille(*test, grille_torique);
 
     grille.AjtObservateurs(&console);
 
