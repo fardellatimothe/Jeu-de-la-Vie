@@ -10,15 +10,15 @@
 
 Le Jeu de la Vie est un automate cellulaire imaginé par John Horton Conway, un mathématicien britannique, pour décrire l'évolution d'une population de cellules dans le temps. 
 
-Les cellules sont représentés par des cases placées sur une grille à deux dimensions. Elles peuvent prendre deux états : **vivante** ou **morte**.
+Les cellules sont représentées par des cases placées sur une grille à deux dimensions. Elles peuvent prendre deux états : **vivante** ou **morte**.
 
 ### 🌟 Règles :
 
-A chaque itération , l'actualisation de ces cellules est régis par deux règles : 
-- Si une cellule morte à précisement trois cellules voisines vivantes, elle se transforme en vivante.
+À chaque itération , l'actualisation de ces cellules est régie par deux règles : 
+- Si une cellule morte à précisément trois cellules voisines vivantes, elle se transforme en vivante.
 - Si une cellule vivante possède deux ou trois cellules voisines vivantes, elle reste vivante.
 
-Notre programme reprend les concepts de la **programmation orienté objet (POO)** en simulant le jeu de la vie à travers le language **C++**.
+Notre programme reprend les concepts de la **programmation orientée objet (POO)** en simulant le jeu de la vie à travers le langage **C++**.
 
 ---
 
@@ -72,7 +72,7 @@ L'utilisateur peut choisir parmi 4 modes :
 3. Mode GC (Graphique & Console)
 4. Mode Test Unitaire
 
-Le jeu intègre dans tous les modes un test unitaire. Si il n'est pas réussis, le programme ne se lance pas.
+Le jeu intègre dans tous les modes un test unitaire. S'il n'est pas réussi, le programme ne se lance pas.
 
 ---
 
@@ -154,34 +154,34 @@ Teste si le programme est fonctionnel en comparant une grille initiale à une gr
 
 ### 🎮 Commandes clavier (Mode Graphique)
 
-Lorsque que vous exécutez le jeu en mode graphique, vous pouvez intéragir avec l'interface graphique grâce à votre clavier : 
+Lorsque vous exécutez le jeu en mode graphique, vous pouvez intéragir avec l'interface graphique grâce à votre clavier : 
 
 - ❌ **Échap** : En appuyant sur cette touche, l'interface se fermera et le programme s'arrêtera.
 
-- ⏸️ **Espace** : En appuyant sur cette touche, le jeu se mettra en pause. Pour que le jeu reprenne, il faudra réappuyer votre barre d'espace.
+- ⏸️ **Espace** : En appuyant sur cette touche, le jeu se mettra en pause. Pour que le jeu reprenne, il faudra réappuyer sur votre barre d'espace.
 
-- ➡️ **Flèche de Droite** : En appuyant sur cette touche, la vitesse d'éxecution du jeu augmentera.
+- ➡️ **Flèche de Droite** : En appuyant sur cette touche, la vitesse d'exécution du jeu augmentera.
 
-- ⬅️ **Flèche de Gauche** : En appuyant sur cette touche, la vitesse d'éxecution du jeu diminuera.
+- ⬅️ **Flèche de Gauche** : En appuyant sur cette touche, la vitesse d'exécution du jeu diminuera.
 
 ---
 
 ## Explication fonctionnement du programme
 
-Dans cette partie, nous allons développer le fonctionnement mais aussi l'optimisation de notre code, et cela en 5 sous-parties : 
+Dans cette partie, nous allons développer le fonctionnement, mais aussi l'optimisation de notre code, et cela en 5 sous-parties : 
 - **Compilation** (makefile)
 - **Choix du mode** (main)
-- **Simulation des prochaine itération** (controleur, grille, cellule, observers)
+- **Simulation des prochaines itérations** (controleur, grille, cellule, observers)
 - **La sauvegarde pour le mode console** (controleur, console, observateur)
 - **L'affichage pour le mode graphique** (controleur, graphique, observateur)
 
 #### C++ : Pourquoi ?
 
-Le language C++ offre à ses utilisateurs des performances élevées et une gestion des ressources optimale, notamment la mémoire. 
-Il est possible de gérer de structures en 2D, comme notre grille de cellule, notament grâce à l'implémentation dans le language de conteneur
+Le langage C++ offre à ses utilisateurs des performances élevées et une gestion des ressources optimale, notamment la mémoire. 
+Il est possible de gérer de structures en 2D, comme notre grille de cellules, notamment grâce à l'implémentation dans le langage de conteneur.
 
 Utiliser le C++ pour développer le Jeu de la vie offre de nombreux avantages, notamment grâce à ses performances et sa gestion des ressources. 
-Avec le C++, il est possible d'optimiser les calculs pour gérer de grandes grilles ou des simulations complexes tout en ayant un contrôle total sur les structures de données, comme les vecteurs ou tableaux. 
+Avec le C++, il est possible d'optimiser les calculs pour gérer de grandes grilles ou des simulations complexes tout en ayant un contrôle total sur les structures de données, comme les vecteurs ou les tableaux. 
 De plus, il permet d'intégrer facilement des bibliothèques comme SFML pour créer une interface graphique réactive. 
 
 #### Compilation : Explication du Makefile
@@ -232,22 +232,22 @@ Le compilateur `clang++` est choisi pour plusieurs raisons :
 - **Intégration facile avec les outils de débogage** : `clang++` fonctionne très bien avec des outils comme `lldb` (le débogueur de LLVM) pour un débogage performant et une analyse détaillée.
 
 
-### Simulation (itération):
+### Simulation (itération) :
 
-La partie simulation va être sur comment on calcule la prochaine itération et donc par conséquent comment on calcule l'état prochain des cellules.
+La partie simulation va être sur comment on calcule la prochaine itération et donc, par conséquent, comment on calcule l'état prochain des cellules.
 
-#### Fonctionnement simplifier
+#### Fonctionnement simplifié
 
-Notre objectif était d'optimiser le plus possible le cout en mémoire mais aussi en temps. Comme nous travaillons sur une grille le cout en temps peux vite devenir quadratique est c'est ce qu'on a évité.
+Notre objectif était d'optimiser le plus possible le cout en mémoire, mais aussi en temps. Comme nous travaillons sur une grille, le cout en temps peut vite devenir quadratique, et c'est ce qu'on a évité.
 
-##### 1er idée (rejeté)
-La première idée était de stocker toute la grille dans une matrice et de parcourir cette dernière pour trouver les cellules vivantes et d'indiquer à leurs voisins qu'il y a une cellule vivante à côté d'eux. Puis ensuite, encore parcourir la matrice pour calculer les cellules qui vont survivre.
+##### 1re idée (rejetée)
+La première idée était de stocker toute la grille dans une matrice et de parcourir cette dernière pour trouver les cellules vivantes et indiquer à leurs voisins qu'il y a une cellule vivante à côté d'eux. Puis ensuite, encore parcourir la matrice pour calculer les cellules qui vont survivre.
 
 Le problème de cette méthode est le coût en temps dû au parcours de la matrice qui demande d'utiliser 2 boucles à chaque itération. Ce qui donne 2 coûts quadratiques additionnés. Et donc le temps d'exécution et de mémoire va dépendre de la taille de la matrice.
 
 Nous avons donc choisi de trouver une autre solution.
 
-##### 2èmes idée (celle utilisé)
+##### 2e idée (celle utilisée)
 
 Nous avons opté pour une approche utilisant des piles (`stack`), permettant de gérer efficacement l'état des cellules vivantes et des cellules voisines. La solution repose sur les éléments suivants :
 
@@ -269,7 +269,7 @@ Nous avons opté pour une approche utilisant des piles (`stack`), permettant de 
    - Ce processus est optimisé en ne traitant que les cellules qui ont potentiellement changé d'état, en utilisant des piles pour une gestion plus efficace.
 
 4. **Observateurs** :
-   - À chaque changement d'état d'une cellule, les observateurs sont notifiés via la méthode `notifierObservateur`. Cela permet d'actualiser les différentes vu pour qu'il ne change que ce qu'il y a modifié.
+   - À chaque changement d'état d'une cellule, les observateurs sont notifiés via la méthode `notifierObservateur`. Cela permet d'actualiser les différentes vues pour qu'il ne change que ce qu'il y a à modifier.
 
 
 #### Complexité en Temps
@@ -282,7 +282,7 @@ Nous avons opté pour une approche utilisant des piles (`stack`), permettant de 
 
 La complexité totale par itération est donc **O(V)**.
 
-Contrairement à la première idée, le coût en temps ne va pas principalement dépendre de la taille de la matrice mais plutôt du nombre de cellules vivantes
+Contrairement à la première idée, le coût en temps ne va pas principalement dépendre de la taille de la matrice, mais plutôt du nombre de cellules vivantes.
 
 #### Complexité en Mémoire
 
@@ -326,7 +326,7 @@ Le mode graphique utilise la bibliothèque **SFML** pour afficher en temps réel
 
 1. **Affichage de la grille** :
    - Chaque cellule est représentée par un rectangle (`sf::RectangleShape`) dessiné à une position spécifique sur la fenêtre SFML.
-   - Les cellules vivantes sont affichées en blanc et obstable vivant en vert, tandis que les cellules mortes apparaissent en noir et les obstacles mort en rouge.
+   - Les cellules vivantes sont affichées en blanc et les obstables vivants en vert, tandis que les cellules mortes apparaissent en noir et les obstacles morts en rouge.
 
 2. **Mise à jour des cellules** :
    - La méthode `update(int x, int y, int etat)` modifie l'état graphique d'une cellule spécifique, en fonction des coordonnées `(x, y)` et de son état (`1` pour vivante, `0` pour morte).
@@ -335,8 +335,3 @@ Le mode graphique utilise la bibliothèque **SFML** pour afficher en temps réel
 #### Complexité
 
 Le mode graphique est ralenti par le coût de rendu des cellules à chaque itération, bien que ce coût reste linéaire par rapport à la taille de la grille \(O(n \times m)\). Cependant, pour des grilles très grandes ou des animations rapides, le temps de rendu peut devenir un goulot d'étranglement. Mais comme nous modifions que ce qu'il y a besoin de modifier, nous limitons le coût en temps.
-
-
-
-
-
