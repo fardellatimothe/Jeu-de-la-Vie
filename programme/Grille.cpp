@@ -71,7 +71,7 @@ void Grille::CalculVoisin() {
                     newY = y + j;
                 }
 
-                if (newX >= 0 && newX < hauteur && newY >= 0 && newY < largeur && !(i == 0 && j == 0)) {
+                if (newX >= 0 && newX < hauteur && newY >= 0 && newY < largeur && !(i == 0 && j == 0) && !(cell_vivante_pile.top()->GetDoitMourir())) {
                     if (existe_pile[newX][newY] == nullptr) {
                         Cellule* cellule_voisine = new CelluleVoisine(newX, newY);
                         cellule_voisine->IncrementerVoisinesVivantes();
@@ -195,7 +195,7 @@ void Grille::NotifObservateur(int x, int y, int Etat){
  *
  * Change l'état d'une cellule aux coordonnées données et met à jour la grille en conséquence.
  * Si la cellule devient vivante, elle est ajoutée à la pile des cellules vivantes.
- * Si elle devient morte, elle est retirée de la pile.
+ * Si elle devient morte, elle va mourir à la prochaine itération.
  *
  * @param x Coordonnée en ligne de la cellule.
  * @param y Coordonnée en colonne de la cellule.
@@ -207,22 +207,9 @@ void Grille::ModifCellule(int x, int y, int Etat){
         Cellule* nouvelle_cellule = new CelluleVivante(x, y);
         cell_vivante_pile.push(nouvelle_cellule);
         existe_pile[x][y] = nouvelle_cellule;
-
     } else if (Etat == 0 && cellule != nullptr)
     {
-        std::stack<Cellule*> temp_pile;
-        while (!cell_vivante_pile.empty()) {
-            if (cell_vivante_pile.top() == cellule) {
-                delete cell_vivante_pile.top();
-                cell_vivante_pile.pop();
-            } else {
-                temp_pile.push(cell_vivante_pile.top());
-                cell_vivante_pile.pop();
-            }
-        }
-        while (!temp_pile.empty()){
-            cell_vivante_pile.push(temp_pile.top());
-            temp_pile.pop();
-        }
+        cellule->DoitMourir();
+        existe_pile[x][y] = nullptr;
     }
 }

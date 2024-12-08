@@ -59,3 +59,22 @@ int Cellule::GetVoisin() const {
 void Cellule::ResetVoisin(){
     nb_voisines_vivantes = 0;
 }
+
+/**
+ * @brief Provoque la mort de la cellules à la prochaine itération.
+ *
+ * Met le doit_mourir à true.
+ */
+void Cellule::DoitMourir(){
+    doit_mourir = true;
+}
+
+
+/**
+ * @brief Renvois si une la cellule doit mourir ou non.
+ *
+ * @return doit_mourir
+ */
+bool Cellule::GetDoitMourir()const {
+    return doit_mourir;
+}

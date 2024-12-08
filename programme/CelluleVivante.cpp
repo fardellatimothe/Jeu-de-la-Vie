@@ -35,6 +35,7 @@ CelluleVivante::CelluleVivante(int x, int y) : Cellule(x, y) {}
  * @return True si la cellule survit à l'itération suivante, False sinon.
  */
 bool CelluleVivante::CalculerProchainEtat() {
+    if (doit_mourir == true) return false;
     if (obstacle == true) return true;
     return (nb_voisines_vivantes == 2 || nb_voisines_vivantes == 3);
 }

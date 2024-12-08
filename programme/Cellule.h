@@ -5,6 +5,9 @@
 using namespace std;
 
 class Cellule {
+protected:
+    bool doit_mourir = false;
+
 public:
     Cellule(int x, int y);
     virtual ~Cellule() {}
@@ -12,9 +15,12 @@ public:
     void IncrementerVoisinesVivantes();
     int GetX() const;
     int GetY() const;
+    bool GetDoitMourir() const;
     int GetVoisin() const;
     void ResetVoisin();
     virtual int Etat() const = 0;
+    void DoitMourir();
+    
 
 protected:
     int nb_voisines_vivantes=0;
