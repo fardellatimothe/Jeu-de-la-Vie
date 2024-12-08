@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <chrono>
 
 
 #include "Graphique.h"
@@ -94,7 +95,7 @@ void Graphique::update(int x, int y, int etat) {
     cellule.setFillColor(etat == 1 ? sf::Color::White : sf::Color::Black);
 
     jeu.draw(cellule);
- }
+}
 
 void Graphique::update_grille(){
     jeu.display();
@@ -106,9 +107,45 @@ void Graphique::handleEvents() {
     while (jeu.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             jeu.close();
+        } else if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::Escape) {
+                jeu.close();
+            }
         }
     }
 }
+
+void Graphique::detectionVitesse(double *vitesse) {
+    sf::Event eventv;
+
+    static auto lastUpdate = std::chrono::steady_clock::now();
+    const auto interval = std::chrono::milliseconds(100);
+
+    while (jeu.pollEvent(eventv)) {
+        if (eventv.type == sf::Event::KeyPressed) {
+            if (eventv.key.code == sf::Keyboard::Escape) {
+                jeu.close();
+            }
+        }
+    }
+
+    auto now = std::chrono::steady_clock::now();
+    if (now - lastUpdate > interval) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+            *vitesse *= 1.1;
+            std::cout << "Vitesse actuelle : " << *vitesse << std::endl;
+            lastUpdate = now;
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+            *vitesse *= 0.9;
+            std::cout << "Vitesse actuelle : " << *vitesse << std::endl;
+            lastUpdate = now;
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+            *vitesse = 999999;
+            lastUpdate = now;
+        }
+    }
+}
+
 
 // Vérifier si la fenêtre est ouverte
 bool Graphique::fenetreOuverte() const {

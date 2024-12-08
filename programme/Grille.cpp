@@ -3,8 +3,8 @@
 Grille::Grille(vector<vector<int>>& matrice, bool grilleTorique) {
     this->grilleTorique = grilleTorique;
     CelluleExiste.resize(matrice.size(), vector<Cellule*>(matrice[0].size(), nullptr));
-    for (int i = 0; i < matrice.size(); ++i) {
-        for (int j = 0; j < matrice[0].size(); ++j) {
+    for (size_t i = 0; i < matrice.size(); ++i) {
+        for (size_t j = 0; j < matrice[0].size(); ++j) {
             if (matrice[i][j] == 1) {
                 Cellule* cellule = new CelluleVivante(i, j);
                 CelluleVivantePile.push(cellule);
