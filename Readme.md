@@ -1,4 +1,4 @@
-# 🎮 Jeu de la vie
+# Le Jeu de la Vie
 
 ## 👨‍💻 Auteur
 - **Thivillier Théo**
